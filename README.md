@@ -33,7 +33,7 @@ This project utilizes **Unity** and the **ML-Agents** library to test a Multi-Ag
 
 ### 2. Python Environment
 **Prerequisites:**
-* Install **Python 3.10.11**.
+* Install **Python 3.10.11** (or another version of 3.10, if you can't find this one).
 
 **Step-by-Step Setup:**
 
