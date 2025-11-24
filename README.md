@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project utilizes **Unity** and the **ML-Agents** library to facilitate a Multi-Agent Reinforcement Learning (MARL) competition. The environment consists of two opposing teams of robots fighting in a closed arena.
+This project utilizes **Unity** and the **ML-Agents** library to test a Multi-Agent Reinforcement Learning (MARL) competition. The environment consists of two opposing teams of robots fighting in a closed arena.
 
 ### The Game Rules
 * **The Objective:** Completely eliminate the opposing team. A team wins when all robots on the opposing team have lost all their balloons.
@@ -23,8 +23,6 @@ This project utilizes **Unity** and the **ML-Agents** library to facilitate a Mu
 ## 🛠️ Setup Instructions
 
 ### 1. Unity Environment
-Ensure all team members are on the exact same version to avoid serialization conflicts.
-
 1.  **Install Unity Editor:**
     * Version: **`6000.2.7f2`** (Install via Unity Hub).
 2.  **Install ML-Agents:**
@@ -34,8 +32,6 @@ Ensure all team members are on the exact same version to avoid serialization con
     * Search for ML Agents and install it.
 
 ### 2. Python Environment
-We use a local virtual environment to manage dependencies.
-
 **Prerequisites:**
 * Install **Python 3.10.11**.
 
