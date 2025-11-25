@@ -106,3 +106,6 @@ env/
 # Ignore compiled python files
 __pycache__/
 *.pyc
+
+#Vscode related
+.vscode/

@@ -74,7 +74,7 @@ public class BattleBotAgent : Agent
         if (cooldownTimer > 0) cooldownTimer -= Time.fixedDeltaTime;
 
         // Physics Application
-        rb.AddRelativeForce(Vector3.forward * moveSignal * currentSpeed);
+        rb.AddForce(transform.forward * moveSignal * currentSpeed, ForceMode.Force);
         transform.Rotate(Vector3.up, turnSignal * turnSpeed * Time.fixedDeltaTime);
 
         // Rewards (Existential penalty to encourage finishing quickly)
