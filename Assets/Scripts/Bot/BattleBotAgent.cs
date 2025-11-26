@@ -19,6 +19,9 @@ public class BattleBotAgent : Agent
     private float boostTimer = 0f;
     private float cooldownTimer = 0f;
 
+    [Header("SharedState")]
+    public SharedState sharedState;
+
     private Rigidbody rb;
 
     public override void Initialize()
@@ -35,6 +38,25 @@ public class BattleBotAgent : Agent
         rb.angularVelocity = Vector3.zero;
         // TODO: Add logic to respawn at random spawn points
         // TODO: Reactivate balloon visuals
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDead) return;
+
+        //More Balloon
+        if (sharedState.balloonGained)
+        {
+            AddReward(+1f);
+            sharedState.balloonGained = false;
+        }
+
+        // Balloon Popped
+        if (sharedState.balloonPopped)
+        {
+            AddReward(-1f);
+            sharedState.balloonPopped = false;
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
