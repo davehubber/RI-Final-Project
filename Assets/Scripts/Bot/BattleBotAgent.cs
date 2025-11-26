@@ -14,7 +14,7 @@ public class BattleBotAgent : Agent
     
     [Header("State")]
     public int teamID; // 0 for Team A, 1 for Team B
-    public int balloons = 3;
+    public int balloons = 2;
     private bool isDead = false;
     private float boostTimer = 0f;
     private float cooldownTimer = 0f;
@@ -29,7 +29,7 @@ public class BattleBotAgent : Agent
     public override void OnEpisodeBegin()
     {
         // Reset Health, Position, and Physics
-        balloons = 3;
+        balloons = 2;
         isDead = false;
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
