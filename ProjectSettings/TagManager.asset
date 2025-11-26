@@ -9,6 +9,8 @@ TagManager:
   - Balloon
   - DeadBot
   - Spike
+  - BalloonSpawner
+  - ActiveBot
   layers:
   - Default
   - TransparentFX
