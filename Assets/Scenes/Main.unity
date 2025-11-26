@@ -494,17 +494,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!114 &544560573 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3733745602650371484, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-  m_PrefabInstance: {fileID: 2100521811488166835}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dff79efa4bad47b6bc09905be636a57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BalloonObject
 --- !u!1 &709733354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,7 +990,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347492295}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b40e4575ab9d04806bf666be7096cd4b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1072,28 +1061,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347492295}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1743953805 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9192883734086324145, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-  m_PrefabInstance: {fileID: 2100521811488166835}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dff79efa4bad47b6bc09905be636a57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
---- !u!114 &1887322803 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3970522492789080648, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-  m_PrefabInstance: {fileID: 2100521811488166835}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dff79efa4bad47b6bc09905be636a57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BalloonObject
 --- !u!1 &1987706164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,26 +1105,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: moveSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: turnSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412053402801310145, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: m_LinearDamping
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6054002300257992556, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_Name
       value: BattleBot
       objectReference: {fileID: 0}
-    - target: {fileID: 6863714207875969502, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-      propertyPath: balloonSlots.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6863714207875969502, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-      propertyPath: 'balloonSlots.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1743953805}
-    - target: {fileID: 6863714207875969502, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-      propertyPath: 'balloonSlots.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1887322803}
-    - target: {fileID: 6863714207875969502, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-      propertyPath: 'balloonSlots.Array.data[2]'
-      value: 
-      objectReference: {fileID: 544560573}
     - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
