@@ -14,10 +14,13 @@ public class BattleBotAgent : Agent
     
     [Header("State")]
     public int teamID; // 0 for Team A, 1 for Team B
-    public int balloons = 3;
+    public int balloons = 2;
     private bool isDead = false;
     private float boostTimer = 0f;
     private float cooldownTimer = 0f;
+
+    [Header("SharedState")]
+    public SharedState sharedState;
 
     private Rigidbody rb;
 
@@ -29,12 +32,31 @@ public class BattleBotAgent : Agent
     public override void OnEpisodeBegin()
     {
         // Reset Health, Position, and Physics
-        balloons = 3;
+        balloons = 2;
         isDead = false;
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         // TODO: Add logic to respawn at random spawn points
         // TODO: Reactivate balloon visuals
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDead) return;
+
+        //More Balloon
+        if (sharedState.balloonGained)
+        {
+            AddReward(+1f);
+            sharedState.balloonGained = false;
+        }
+
+        // Balloon Popped
+        if (sharedState.balloonPopped)
+        {
+            AddReward(-1f);
+            sharedState.balloonPopped = false;
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)

@@ -4,6 +4,10 @@ using UnityEngine;
 public class BalloonManager : MonoBehaviour
 {
     private BalloonObject[] balloonSlots;
+
+    [Header("SharedState")]
+    public SharedState sharedState;
+
     public int MaxBalloons => balloonSlots.Length;
     private void Awake()
     {
@@ -40,6 +44,7 @@ public class BalloonManager : MonoBehaviour
             {
                 Debug.Log("BalloonManager: Restoring balloon");
                 balloon.Restore();
+                sharedState.balloonGained = true;
                 break; // on first found inactive balloon, restore and exit
             }
         }

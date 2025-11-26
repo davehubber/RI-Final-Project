@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class RestoreBalloons : MonoBehaviour
 {
+    public Material materialTeam0;
+    public Material materialTeam1;
+
     public float spawnerCooldwn = 10f;
     private float cooldownTimer = 0f;
 
     private Renderer spawnerRenderer;
     private Collider spawnerCollider;
-    private bool isActive = true;
+    private bool isActive = false;
+
+    //Limits of the plain
+    public Vector2 xRange = new Vector2(-5f, 5f);
+    public Vector2 zRange = new Vector2(-5f, 5f);
 
     private void Awake()
     {
@@ -52,6 +59,21 @@ public class RestoreBalloons : MonoBehaviour
 
     public void SpawnBalloon()
     {
+        //Translaction of the ballon
+        float randomX = Random.Range(xRange.x, xRange.y);
+        float randomZ = Random.Range(zRange.x, zRange.y);
+        float y = transform.position.y;
+        transform.position = new Vector3(randomX, y, randomZ);
+
+
+        //What material it will use
+        int randomChoice = Random.Range(0, 2); // 0 or 1
+        if (randomChoice == 0)
+            spawnerRenderer.material = materialTeam0;
+        else
+            spawnerRenderer.material = materialTeam1;
+
+
         spawnerRenderer.enabled = true;
         spawnerCollider.enabled = true;
         isActive = true;
