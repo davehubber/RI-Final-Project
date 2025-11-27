@@ -5,12 +5,12 @@ public class BalloonManager : MonoBehaviour
 {
     private BalloonObject[] balloonSlots;
 
-    [Header("SharedState")]
-    public SharedState sharedState;
+    private StateEventManager stateManager;
 
     public int MaxBalloons => balloonSlots.Length;
     private void Awake()
     {
+        // gather all BalloonObject components in children
         List<BalloonObject> balloons = new List<BalloonObject>();
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -21,6 +21,13 @@ public class BalloonManager : MonoBehaviour
             }
         }
         balloonSlots = balloons.ToArray();
+
+        // find StateEventManager
+        stateManager = GetComponentInChildren<StateEventManager>();
+        if (stateManager == null)
+        {
+            Debug.LogError("BalloonManager: No StateEventManager found in children!");
+        }
     }
 
 
@@ -44,10 +51,16 @@ public class BalloonManager : MonoBehaviour
             {
                 Debug.Log("BalloonManager: Restoring balloon");
                 balloon.Restore();
-                sharedState.balloonGained = true;
+                stateManager.balloonRestored(balloon);
                 break; // on first found inactive balloon, restore and exit
             }
         }
+    }
+
+    // called by child balloon when popped
+    public void PopBalloon(BalloonObject balloon)
+    {
+        stateManager.balloonPopped(balloon);
     }
 
 }

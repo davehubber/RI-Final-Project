@@ -43,7 +43,6 @@ public class RestoreBalloons : MonoBehaviour
             {
                 DespawnBalloon();
                 var balloonManager = other.GetComponent<BalloonManager>();
-                Debug.Log("Found BalloonManager on ActiveBot: " + (balloonManager != null));
                 if (balloonManager != null)
                 {
                     balloonManager.AddBalloon();

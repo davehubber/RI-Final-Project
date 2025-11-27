@@ -19,14 +19,32 @@ public class BattleBotAgent : Agent
     private float boostTimer = 0f;
     private float cooldownTimer = 0f;
 
-    [Header("SharedState")]
-    public SharedState sharedState;
-
+    private StateEventManager stateManager;
     private Rigidbody rb;
+
+    // on intialize agent
 
     public override void Initialize()
     {
         rb = GetComponent<Rigidbody>();
+
+        // subscribe to all state events
+        stateManager = GetComponentInChildren<StateEventManager>();
+        if (stateManager == null)
+        {
+            Debug.LogError("BattleBotAgent: No StateEventManager found in children!");
+            return;
+        }
+        stateManager.OnBalloonPopped += handleRewardOnBalloonPopped;
+        stateManager.OnBalloonRestored += handleRewardOnBalloonGained;
+
+    }
+    // on destroy gameObject
+    private void OnDestroy()
+    {
+        // unsubscribe to all state events
+        stateManager.OnBalloonPopped -= handleRewardOnBalloonPopped;
+        stateManager.OnBalloonRestored -= handleRewardOnBalloonGained;
     }
 
     public override void OnEpisodeBegin()
@@ -38,25 +56,6 @@ public class BattleBotAgent : Agent
         rb.angularVelocity = Vector3.zero;
         // TODO: Add logic to respawn at random spawn points
         // TODO: Reactivate balloon visuals
-    }
-
-    private void FixedUpdate()
-    {
-        if (isDead) return;
-
-        //More Balloon
-        if (sharedState.balloonGained)
-        {
-            AddReward(+1f);
-            sharedState.balloonGained = false;
-        }
-
-        // Balloon Popped
-        if (sharedState.balloonPopped)
-        {
-            AddReward(-1f);
-            sharedState.balloonPopped = false;
-        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -126,5 +125,19 @@ public class BattleBotAgent : Agent
         // Disable Agent Script logic but keep Rigidbody/Collider active
         // Change tag to "DeadBot"
         EndEpisode(); // Or stay in scene depending on training mode
+    }
+
+
+    // reward functions
+    public void handleRewardOnBalloonGained(BalloonObject balloon)
+    {
+        Debug.Log("BattleBotAgent: Reward +1, balloon gained");
+        AddReward(+1f);
+    }
+
+    public void handleRewardOnBalloonPopped(BalloonObject balloon)
+    {
+        Debug.Log("BattleBotAgent: Reward -1, balloon popped");
+        AddReward(-1f);
     }
 }

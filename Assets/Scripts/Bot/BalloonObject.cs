@@ -11,6 +11,7 @@ public class BalloonObject : MonoBehaviour
     {
         balloonRenderer = GetComponent<Renderer>();
         balloonCollider = GetComponent<Collider>();
+        if (!balloonCollider.enabled && !balloonRenderer.enabled) isActive = false;
         parentBalloonManager = GetComponentInParent<BalloonManager>();
 
     }
@@ -24,7 +25,7 @@ public class BalloonObject : MonoBehaviour
         balloonRenderer.enabled = false;
         balloonCollider.enabled = false;
 
-        // parentBalloonManager.PopBalloon(this); // need to notify parent manager?
+        parentBalloonManager.PopBalloon(this); // notify parent manager
     }
 
     public void Restore()
