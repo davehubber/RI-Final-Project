@@ -717,6 +717,7 @@ MonoBehaviour:
   boostDuration: 2
   boostCooldown: 5
   teamID: 0
+  debugStartDead: 0
 --- !u!114 &6400593883494249571
 MonoBehaviour:
   m_ObjectHideFlags: 0
