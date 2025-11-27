@@ -15,10 +15,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - AgentCamera
   - Water
   - UI
-  - 
+  - BirdsEyeCamera
   - 
   - 
   - 

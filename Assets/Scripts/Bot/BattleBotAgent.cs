@@ -35,16 +35,19 @@ public class BattleBotAgent : Agent
             Debug.LogError("BattleBotAgent: No StateEventManager found in children!");
             return;
         }
-        stateManager.OnBalloonPopped += handleRewardOnBalloonPopped;
-        stateManager.OnBalloonRestored += handleRewardOnBalloonGained;
+        stateManager.OnSelfBalloonPopped += handleRewardOnSelfBalloonPopped;
+        stateManager.OnSelfBalloonRestored += handleRewardOnBalloonGained;
+        stateManager.OnEnemyBalloonPopped += handleRewardOnEnemyBalloonPopped;
 
     }
     // on destroy gameObject
     private void OnDestroy()
     {
         // unsubscribe to all state events
-        stateManager.OnBalloonPopped -= handleRewardOnBalloonPopped;
-        stateManager.OnBalloonRestored -= handleRewardOnBalloonGained;
+        stateManager.OnSelfBalloonPopped -= handleRewardOnSelfBalloonPopped;
+        stateManager.OnSelfBalloonRestored -= handleRewardOnBalloonGained;
+        stateManager.OnEnemyBalloonPopped -= handleRewardOnEnemyBalloonPopped;
+
     }
 
     public override void OnEpisodeBegin()
@@ -129,15 +132,21 @@ public class BattleBotAgent : Agent
 
 
     // reward functions
-    public void handleRewardOnBalloonGained(BalloonObject balloon)
+    private void handleRewardOnBalloonGained(BalloonObject balloon)
     {
         Debug.Log("BattleBotAgent: Reward +1, balloon gained");
         AddReward(+1f);
     }
 
-    public void handleRewardOnBalloonPopped(BalloonObject balloon)
+    private void handleRewardOnSelfBalloonPopped(BalloonObject balloon)
     {
         Debug.Log("BattleBotAgent: Reward -1, balloon popped");
         AddReward(-1f);
+    }
+
+    private void handleRewardOnEnemyBalloonPopped(BalloonObject balloon)
+    {
+        Debug.Log("BattleBotAgent: Reward +3, enemy balloon popped");
+        AddReward(+3f);
     }
 }

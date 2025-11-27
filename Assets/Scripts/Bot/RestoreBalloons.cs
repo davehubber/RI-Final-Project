@@ -36,7 +36,6 @@ public class RestoreBalloons : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("RestoreBalloons collided with: " + other.name);
         if (other.CompareTag("ActiveBot"))
         {
             if (isActive)

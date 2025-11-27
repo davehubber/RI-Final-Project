@@ -3,19 +3,23 @@ using System;
 
 public class StateEventManager : MonoBehaviour
 {
-    public event Action<BalloonObject> OnBalloonPopped;
-    public event Action<BalloonObject> OnBalloonRestored;
+    public event Action<BalloonObject> OnSelfBalloonPopped;
+    public event Action<BalloonObject> OnEnemyBalloonPopped;
+    public event Action<BalloonObject> OnSelfBalloonRestored;
 
-    public void balloonPopped(BalloonObject balloon)
+    public void InvokeSelfBalloonPopped(BalloonObject balloon)
     {
-        Debug.Log("StateEventManager: Balloon popped event invoked.");
-        OnBalloonPopped?.Invoke(balloon);
+        OnSelfBalloonPopped?.Invoke(balloon);
     }
 
-    public void balloonRestored(BalloonObject balloon)
+    public void InvokeSelfBalloonRestored(BalloonObject balloon)
     {
-        Debug.Log("StateEventManager: Balloon restored event invoked.");
-        OnBalloonRestored?.Invoke(balloon);
+        OnSelfBalloonRestored?.Invoke(balloon);
+    }
+
+    public void InvokeEnemyBalloonPopped(BalloonObject balloon)
+    {
+        OnEnemyBalloonPopped?.Invoke(balloon);
     }
 
 }

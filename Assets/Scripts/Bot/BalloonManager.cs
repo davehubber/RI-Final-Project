@@ -51,7 +51,7 @@ public class BalloonManager : MonoBehaviour
             {
                 Debug.Log("BalloonManager: Restoring balloon");
                 balloon.Restore();
-                stateManager.balloonRestored(balloon);
+                stateManager.InvokeSelfBalloonRestored(balloon);
                 break; // on first found inactive balloon, restore and exit
             }
         }
@@ -60,7 +60,7 @@ public class BalloonManager : MonoBehaviour
     // called by child balloon when popped
     public void PopBalloon(BalloonObject balloon)
     {
-        stateManager.balloonPopped(balloon);
+        stateManager.InvokeSelfBalloonPopped(balloon);
     }
 
 }
