@@ -949,31 +949,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 727623584}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &829332403 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3534829944232422402, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-  m_PrefabInstance: {fileID: 845078283}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &829332406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 829332403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Sensors.CameraSensorComponent
-  m_Camera: {fileID: 0}
-  m_SensorName: CameraSensor
-  m_Width: 84
-  m_Height: 84
-  m_Grayscale: 0
-  m_ObservationType: 0
-  m_ObservationStacks: 1
-  m_Compression: 1
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,6 +1010,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 471583584441747754, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: m_SensorName
+      value: RayPerceptionSensor2
+      objectReference: {fileID: 0}
     - target: {fileID: 1164237137709294761, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.6
@@ -1045,11 +1024,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: sharedState
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: debugStartDead
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412053402801310145, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412053402801310145, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2178702773287836579, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1061,7 +1052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2356520528361997826, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2448221531965580442, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_Enabled
@@ -1089,7 +1080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6400593883494249571, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6400593883494249571, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_BehaviorType
@@ -1102,6 +1093,10 @@ PrefabInstance:
     - target: {fileID: 6863714207875969502, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: balloonSlots.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7248840399084281592, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: m_SensorName
+      value: CameraSensor2
       objectReference: {fileID: 0}
     - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1150,10 +1145,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3534829944232422402, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 829332406}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
 --- !u!1 &858870343
 GameObject:
@@ -1984,13 +1976,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-      propertyPath: moveSpeed
-      value: 75
+    - target: {fileID: 471583584441747754, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: m_SensorName
+      value: RayPerceptionSensor1
       objectReference: {fileID: 0}
     - target: {fileID: 6054002300257992556, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_Name
       value: BattleBot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7248840399084281592, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: m_SensorName
+      value: CameraSensor1
       objectReference: {fileID: 0}
     - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2108,7 +2104,7 @@ PrefabInstance:
     - target: {fileID: 8029137692822173933, guid: 505380be440dc46478944782817f3198, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1d3bb4ac325f539438e894e596bea571, type: 2}
+      objectReference: {fileID: 2100000, guid: b8eb7b4116caa4e1db0ce9d9ee466f84, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

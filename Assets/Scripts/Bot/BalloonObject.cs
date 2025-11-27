@@ -16,23 +16,30 @@ public class BalloonObject : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    // hides balloon and notifies parent manager
     public void Pop()
     {
         if (!isActive) return;
 
-        isActive = false; 
-        balloonRenderer.enabled = false;
-        balloonCollider.enabled = false;
+        Hide();
 
         parentBalloonManager.PopBalloon(this); // notify parent manager
     }
 
+    // restores balloon visual and collider
     public void Restore()
     {
         isActive = true;
         balloonRenderer.enabled = true;
         balloonCollider.enabled = true;
+    }
+
+    // hides balloon visuals and collider
+    public void Hide()
+    {
+        isActive = false;
+        balloonRenderer.enabled = false;
+        balloonCollider.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)

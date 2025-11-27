@@ -7,7 +7,11 @@ public class BalloonManager : MonoBehaviour
 
     private StateEventManager stateManager;
 
-    public int MaxBalloons => balloonSlots.Length;
+    // Stores the starting active/inactive configuration of baloons
+    private bool[] initialActiveState;
+
+    public int currentBalloons {get; private set; } = 0;
+
     private void Awake()
     {
         // gather all BalloonObject components in children
@@ -18,26 +22,22 @@ public class BalloonManager : MonoBehaviour
             if (balloon != null)
             {
                 balloons.Add(balloon);
+
+                if (balloon.isActive) currentBalloons++; // count how many balloons are active
             }
         }
         balloonSlots = balloons.ToArray();
+
+        // Save starting state for resets
+        initialActiveState = new bool[balloonSlots.Length];
+        for (int i = 0; i < balloonSlots.Length; i++)
+            initialActiveState[i] = balloonSlots[i].isActive;
 
         // find StateEventManager
         stateManager = GetComponentInChildren<StateEventManager>();
         if (stateManager == null)
         {
             Debug.LogError("BalloonManager: No StateEventManager found in children!");
-        }
-    }
-
-
-    public void getCurrentBalloons()
-    {
-        int count = 0;
-        foreach (var balloon in balloonSlots)
-        {
-            if (balloon.isActive)
-                count++;
         }
     }
 
@@ -52,6 +52,7 @@ public class BalloonManager : MonoBehaviour
                 Debug.Log("BalloonManager: Restoring balloon");
                 balloon.Restore();
                 stateManager.InvokeSelfBalloonRestored(balloon);
+                currentBalloons++;
                 break; // on first found inactive balloon, restore and exit
             }
         }
@@ -61,6 +62,33 @@ public class BalloonManager : MonoBehaviour
     public void PopBalloon(BalloonObject balloon)
     {
         stateManager.InvokeSelfBalloonPopped(balloon);
+        currentBalloons--;
+        if (currentBalloons == 0)
+        {
+            stateManager.InvokeSelfBotDeath(balloon);
+        }
     }
 
+    public void ResetBalloons()
+    {
+        currentBalloons = 0;
+
+        for (int i = 0; i < balloonSlots.Length; i++)
+        {
+            BalloonObject balloon = balloonSlots[i];
+            bool shouldBeActive = initialActiveState[i];
+
+            if (shouldBeActive)
+            {
+                balloon.Restore();
+                currentBalloons++;
+            }
+            else
+            {
+                balloon.Hide();
+            }
+        }
+
+        Debug.Log("BalloonManager: Balloons reset to original configuration.");
+    }
 }

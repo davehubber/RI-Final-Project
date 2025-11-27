@@ -69,14 +69,14 @@ This project utilizes **Unity** and the **ML-Agents** library to test a Multi-Ag
 ---
 
 ## ✅ To-Do List
-- [ ] Implement Collision Logic: Spike hits Balloon -> Balloon Pop (The visual is disabled, much cheaper than destroying and creating).
-- [ ] Implement Death Logic: 0 Balloons -> Disable Agent script -> Robot becomes static obstacle.
-- [ ] Create the Map: Walls, Floor.
+- [X] Implement Collision Logic: Spike hits Balloon -> Balloon Pop (The visual is disabled, much cheaper than destroying and creating).
+- [X] Implement Death Logic: 0 Balloons -> Disable Agent script -> Robot becomes static obstacle.
+- [X] Create the Map: Walls, Floor.
 - [ ] Implement Balloon Spawner logic (2 zone objects. Check if a balloon exists; if not, wait X seconds and instantiate one).
-- [ ] Implement "Pickup" logic (Robot touches spawn balloon -> +1 Balloon, cannot go over max of 3).
+- [X] Implement "Pickup" logic (Robot touches spawn balloon -> +1 Balloon, cannot go over max of 3).
 - [ ] Make sure `RayPerceptionSensor` can distinguish between a Wall, an Enemy (Dead/Alive), and a Balloon (Tags: Wall, Enemy, Balloon, DeadBot).
 - [ ] Configure Behavior Parameters component of the BattleBotAgent (Vector Observation, Actions etc.).
-- [ ] Use `Heuristic` controls of the `BattleBotAgent` to test with the keyboard and make sure action logic (speed, turning, boost and collision) is working and beeing registered correctly.
+- [X] Use `Heuristic` controls of the `BattleBotAgent` to test with the keyboard and make sure action logic (speed, turning, boost and collision) is working and beeing registered correctly.
 - [ ] Define the Reward Function (e.g. Individual reward for popping, penalty for time, large team reward for winning).
 - [ ] Create `MatchManager` script to define the teams and agent groups (probably will use SimpleMultiAgentGroup) and handle Game State (Tracks how many robots are alive on Team A vs Team B. When a team reaches 0 agents, it calls EndEpisode() on all agents and resets the map. Handles random spawn positions for the robots at the start of a match).
 - [ ] Create `trainer_config.yaml` to configure all the RL parameters.

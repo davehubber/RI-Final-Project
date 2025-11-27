@@ -6,6 +6,7 @@ public class StateEventManager : MonoBehaviour
     public event Action<BalloonObject> OnSelfBalloonPopped;
     public event Action<BalloonObject> OnEnemyBalloonPopped;
     public event Action<BalloonObject> OnSelfBalloonRestored;
+    public event Action<BalloonObject> OnSelfBotDeath;
 
     public void InvokeSelfBalloonPopped(BalloonObject balloon)
     {
@@ -22,4 +23,8 @@ public class StateEventManager : MonoBehaviour
         OnEnemyBalloonPopped?.Invoke(balloon);
     }
 
+    public void InvokeSelfBotDeath(BalloonObject balloon)
+    {
+        OnSelfBotDeath?.Invoke(balloon);
+    }
 }

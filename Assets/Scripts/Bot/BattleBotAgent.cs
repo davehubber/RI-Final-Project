@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using NUnit.Framework;
 
 public class BattleBotAgent : Agent
 {
@@ -14,12 +15,17 @@ public class BattleBotAgent : Agent
     
     [Header("State")]
     public int teamID; // 0 for Team A, 1 for Team B
-    public int balloons = 2;
+
+    [Header("Debug")]
+    [SerializeField] private bool debugStartDead = false;
+
     private bool isDead = false;
+
     private float boostTimer = 0f;
     private float cooldownTimer = 0f;
 
     private StateEventManager stateManager;
+    private BalloonManager balloonManager;
     private Rigidbody rb;
 
     // on intialize agent
@@ -28,6 +34,13 @@ public class BattleBotAgent : Agent
     {
         rb = GetComponent<Rigidbody>();
 
+        balloonManager = GetComponent<BalloonManager>();
+        if (balloonManager == null)
+        {
+            Debug.LogError("BattleBotAgent: No BalloonManager found on GameObject!");
+            return;
+        }
+
         // subscribe to all state events
         stateManager = GetComponentInChildren<StateEventManager>();
         if (stateManager == null)
@@ -35,10 +48,11 @@ public class BattleBotAgent : Agent
             Debug.LogError("BattleBotAgent: No StateEventManager found in children!");
             return;
         }
+
         stateManager.OnSelfBalloonPopped += handleRewardOnSelfBalloonPopped;
         stateManager.OnSelfBalloonRestored += handleRewardOnBalloonGained;
         stateManager.OnEnemyBalloonPopped += handleRewardOnEnemyBalloonPopped;
-
+        stateManager.OnSelfBotDeath += handleSelfBotDeath;
     }
     // on destroy gameObject
     private void OnDestroy()
@@ -47,27 +61,38 @@ public class BattleBotAgent : Agent
         stateManager.OnSelfBalloonPopped -= handleRewardOnSelfBalloonPopped;
         stateManager.OnSelfBalloonRestored -= handleRewardOnBalloonGained;
         stateManager.OnEnemyBalloonPopped -= handleRewardOnEnemyBalloonPopped;
+        stateManager.OnSelfBotDeath -= handleSelfBotDeath;
 
     }
 
     public override void OnEpisodeBegin()
     {
-        // Reset Health, Position, and Physics
-        balloons = 2;
-        isDead = false;
+        // isDead = false;
+        isDead = debugStartDead;
+
+        // Reset physics
+        rb.isKinematic = false;
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+
+        // assign alive tag
+        gameObject.tag = "ActiveBot";
+
+        // reset balloons
+        balloonManager.ResetBalloons();
+
+        // reset timers
+        boostTimer = 0f;
+        cooldownTimer = 0f;
+
         // TODO: Add logic to respawn at random spawn points
-        // TODO: Reactivate balloon visuals
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        if (isDead) return;
-
         // Observe self stats
         sensor.AddObservation(transform.InverseTransformDirection(rb.linearVelocity));
-        sensor.AddObservation(balloons);
+        sensor.AddObservation(balloonManager.currentBalloons);
         sensor.AddObservation(cooldownTimer > 0 ? 1 : 0); // Is boost available?
     }
 
@@ -122,14 +147,29 @@ public class BattleBotAgent : Agent
         // If balloons == 0 -> Die()
     }
 
-    private void Die()
+    private void handleSelfBotDeath(BalloonObject balloon)
     {
+        Debug.Log("BattleBotAgent: Reward -5, bot died");
+        
         isDead = true;
-        // Disable Agent Script logic but keep Rigidbody/Collider active
-        // Change tag to "DeadBot"
-        EndEpisode(); // Or stay in scene depending on training mode
+
+        //disable physics controls
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = false; // stay as dead weight
+
+        //assign dead tag
+        gameObject.tag = "DeadBot";
+
+        AddReward(-5f); // Penalty for dying // makes sense ?? // maybe sacrifice for others is useful ?? // should we penalize it ???
     }
 
+    //
+    private void HandleTeamDeath()
+    {
+        // TODO: detect when full team dead
+        EndEpisode();
+    }
 
     // reward functions
     private void handleRewardOnBalloonGained(BalloonObject balloon)

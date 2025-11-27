@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Sensors.RayPerceptionSensorComponent3D
-  m_SensorName: RayPerceptionSensor
+  m_SensorName: RayPerceptionSensor1
   m_DetectableTags:
   - Wall
   - Enemy
@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Sensors.CameraSensorComponent
   m_Camera: {fileID: 5498132555800730416}
-  m_SensorName: CameraSensor
+  m_SensorName: CameraSensor1
   m_Width: 84
   m_Height: 84
   m_Grayscale: 0
@@ -717,7 +717,6 @@ MonoBehaviour:
   boostDuration: 2
   boostCooldown: 5
   teamID: 0
-  balloons: 3
 --- !u!114 &6400593883494249571
 MonoBehaviour:
   m_ObjectHideFlags: 0
