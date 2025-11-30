@@ -1,0 +1,17 @@
+name: ri-ml
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+  - defaults
+dependencies:
+  - python=3.10.12
+  - pip
+  - numpy
+  - mamba  # optional: faster solver (will be used by the create script if present)
+
+# Note:
+# - We intentionally do not install `torch` via pip here. The helper script
+#   installs PyTorch via conda (pytorch + pytorch-cuda) to avoid wheel/driver
+#   mismatches. After PyTorch is installed via conda the script will pip-install
+#   the remainder of the project's `requirements.txt` while excluding torch.
