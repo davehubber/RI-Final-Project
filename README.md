@@ -80,4 +80,7 @@ This project utilizes **Unity** and the **ML-Agents** library to test a Multi-Ag
 - [X] Define the Reward Function (e.g. Individual reward for popping, penalty for time, large team reward for winning).
 - [X] Create `MatchManager` script to define the teams and agent groups (probably will use SimpleMultiAgentGroup) and handle Game State (Tracks how many robots are alive on Team A vs Team B. When a team reaches 0 agents, it calls EndEpisode() on all agents and resets the map. Handles random spawn positions for the robots at the start of a match).
 - [X] Create `trainer_config.yaml` to configure all the RL parameters.
-- [ ] Successfully run a training loop (`mlagents-learn`) and verify TensorBoard stats.
+- [ ] Successfully run an initial training loop (no spawners or walls) and verify how it learns.
+- [ ] If agents are taking too long to learn, do intermediate steps (for example, imitation learning or something more adequate).
+- [ ] After they are playing good-enough, add walls (make sure agents don't spawn on top of walls).
+- [ ] Finally, activate the two balloon spawning zones and train the 1v1 case until the end.
