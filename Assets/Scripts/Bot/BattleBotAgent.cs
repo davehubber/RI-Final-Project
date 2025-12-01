@@ -1,192 +1,100 @@
 using UnityEngine;
 using Unity.MLAgents;
-using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-using NUnit.Framework;
+using Unity.MLAgents.Actuators;
+using System.Collections;
 
-public class BattleBotAgent : Agent
+public class BattleAgent : Agent
 {
-    [Header("Stats")]
+    [Header("Movement Settings")]
     public float moveSpeed = 10f;
     public float turnSpeed = 200f;
+    public float acceleration = 5f;
+
+    [Header("Boost Settings")]
     public float boostMultiplier = 2f;
     public float boostDuration = 2f;
     public float boostCooldown = 5f;
     
-    [Header("State")]
-    public int teamID; // 0 for Team A, 1 for Team B
+    private bool isBoosting = false;
+    private bool canBoost = true;
 
-    [Header("Debug")]
-    [SerializeField] private bool debugStartDead = false;
-
-    private bool isDead = false;
-
-    private float boostTimer = 0f;
-    private float cooldownTimer = 0f;
-
-    private StateEventManager stateManager;
-    private BalloonManager balloonManager;
-    private Rigidbody rb;
-
-    // on intialize agent
+    Rigidbody rBody;
 
     public override void Initialize()
     {
-        rb = GetComponent<Rigidbody>();
-
-        balloonManager = GetComponent<BalloonManager>();
-        if (balloonManager == null)
-        {
-            Debug.LogError("BattleBotAgent: No BalloonManager found on GameObject!");
-            return;
-        }
-
-        // subscribe to all state events
-        stateManager = GetComponentInChildren<StateEventManager>();
-        if (stateManager == null)
-        {
-            Debug.LogError("BattleBotAgent: No StateEventManager found in children!");
-            return;
-        }
-
-        stateManager.OnSelfBalloonPopped += handleRewardOnSelfBalloonPopped;
-        stateManager.OnSelfBalloonRestored += handleRewardOnBalloonGained;
-        stateManager.OnEnemyBalloonPopped += handleRewardOnEnemyBalloonPopped;
-        stateManager.OnSelfBotDeath += handleSelfBotDeath;
-    }
-    // on destroy gameObject
-    private void OnDestroy()
-    {
-        // unsubscribe to all state events
-        stateManager.OnSelfBalloonPopped -= handleRewardOnSelfBalloonPopped;
-        stateManager.OnSelfBalloonRestored -= handleRewardOnBalloonGained;
-        stateManager.OnEnemyBalloonPopped -= handleRewardOnEnemyBalloonPopped;
-        stateManager.OnSelfBotDeath -= handleSelfBotDeath;
-
+        rBody = GetComponent<Rigidbody>();
     }
 
     public override void OnEpisodeBegin()
     {
-        // isDead = false;
-        isDead = debugStartDead;
+        rBody.linearVelocity = Vector3.zero;
+        rBody.angularVelocity = Vector3.zero;
+        
+        StopAllCoroutines();
+        canBoost = true;
+        isBoosting = false;
 
-        // Reset physics
-        rb.isKinematic = false;
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-
-        // assign alive tag
-        gameObject.tag = "ActiveBot";
-
-        // reset balloons
-        balloonManager.ResetBalloons();
-
-        // reset timers
-        boostTimer = 0f;
-        cooldownTimer = 0f;
-
-        // TODO: Add logic to respawn at random spawn points
+        // Random Spawn
+        transform.localPosition = new Vector3(Random.Range(-5f, 5f), 0.5f, Random.Range(-5f, 5f));
+        transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        // Observe self stats
-        sensor.AddObservation(transform.InverseTransformDirection(rb.linearVelocity));
-        sensor.AddObservation(balloonManager.currentBalloons);
-        sensor.AddObservation(cooldownTimer > 0 ? 1 : 0); // Is boost available?
+        var localVel = transform.InverseTransformDirection(rBody.linearVelocity);
+        sensor.AddObservation(localVel.x);
+        sensor.AddObservation(localVel.z);
+
+        sensor.AddObservation(canBoost ? 1.0f : 0.0f);
+        sensor.AddObservation(isBoosting ? 1.0f : 0.0f); 
     }
 
-    public override void OnActionReceived(ActionBuffers actions)
+    public override void OnActionReceived(ActionBuffers actionBuffers)
     {
-        if (isDead) return;
+        float moveSignal = actionBuffers.ContinuousActions[0];
+        float turnSignal = actionBuffers.ContinuousActions[1];
+        int boostSignal = actionBuffers.DiscreteActions[0];
 
-        // 1. Movement Actions
-        float moveSignal = actions.ContinuousActions[0];
-        float turnSignal = actions.ContinuousActions[1];
+        transform.Rotate(0, turnSignal * turnSpeed * Time.fixedDeltaTime, 0);
 
-        // 2. Ability Actions
-        int boostSignal = actions.DiscreteActions[0]; 
+        if (boostSignal == 1 && canBoost)
+        {
+            StartCoroutine(ActivateBoost());
+        }
+
+        float currentMaxSpeed = isBoosting ? moveSpeed * boostMultiplier : moveSpeed;
         
-        // Boost Logic
-        float currentSpeed = moveSpeed;
-        if (boostSignal == 1 && cooldownTimer <= 0)
-        {
-            boostTimer = boostDuration;
-            cooldownTimer = boostCooldown;
-        }
-
-        if (boostTimer > 0)
-        {
-            currentSpeed *= boostMultiplier;
-            boostTimer -= Time.fixedDeltaTime;
-        }
-        if (cooldownTimer > 0) cooldownTimer -= Time.fixedDeltaTime;
-
-        // Physics Application
-        rb.AddForce(transform.forward * moveSignal * currentSpeed, ForceMode.Force);
-        transform.Rotate(Vector3.up, turnSignal * turnSpeed * Time.fixedDeltaTime);
-
-        // Rewards (Existential penalty to encourage finishing quickly)
-        AddReward(-0.001f); 
+        Vector3 targetVelocity = transform.forward * moveSignal * currentMaxSpeed;
+        
+        Vector3 newVelocity = Vector3.MoveTowards(rBody.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+        
+        newVelocity.y = rBody.linearVelocity.y;
+        
+        rBody.linearVelocity = newVelocity;
     }
 
-    // Basic Heuristic for manual testing
+    IEnumerator ActivateBoost()
+    {
+        canBoost = false;
+        isBoosting = true;
+
+        yield return new WaitForSeconds(boostDuration);
+
+        isBoosting = false;
+
+        yield return new WaitForSeconds(boostCooldown);
+
+        canBoost = true;
+    }
+
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        var continuousActions = actionsOut.ContinuousActions;
-        continuousActions[0] = Input.GetAxis("Vertical");
-        continuousActions[1] = Input.GetAxis("Horizontal");
-        
-        var discreteActions = actionsOut.DiscreteActions;
-        discreteActions[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
-    }
+        var continuousActionsOut = actionsOut.ContinuousActions;
+        var discreteActionsOut = actionsOut.DiscreteActions;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Logic: If collision.gameObject is "Spike" and opposing team -> Pop Balloon
-        // If balloons == 0 -> Die()
-    }
-
-    private void handleSelfBotDeath(BalloonObject balloon)
-    {
-        Debug.Log("BattleBotAgent: Reward -5, bot died");
-        
-        isDead = true;
-
-        //disable physics controls
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.isKinematic = false; // stay as dead weight
-
-        //assign dead tag
-        gameObject.tag = "DeadBot";
-
-        AddReward(-5f); // Penalty for dying // makes sense ?? // maybe sacrifice for others is useful ?? // should we penalize it ???
-    }
-
-    //
-    private void HandleTeamDeath()
-    {
-        // TODO: detect when full team dead
-        EndEpisode();
-    }
-
-    // reward functions
-    private void handleRewardOnBalloonGained(BalloonObject balloon)
-    {
-        Debug.Log("BattleBotAgent: Reward +1, balloon gained");
-        AddReward(+1f);
-    }
-
-    private void handleRewardOnSelfBalloonPopped(BalloonObject balloon)
-    {
-        Debug.Log("BattleBotAgent: Reward -1, balloon popped");
-        AddReward(-1f);
-    }
-
-    private void handleRewardOnEnemyBalloonPopped(BalloonObject balloon)
-    {
-        Debug.Log("BattleBotAgent: Reward +3, enemy balloon popped");
-        AddReward(+3f);
+        continuousActionsOut[0] = Input.GetAxis("Vertical");
+        continuousActionsOut[1] = Input.GetAxis("Horizontal");
+        discreteActionsOut[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
     }
 }

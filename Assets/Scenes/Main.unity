@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 242015247}
   m_Layer: 0
   m_Name: LeftWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -512,7 +512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &519923432
 Transform:
   m_ObjectHideFlags: 0
@@ -623,7 +623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &552381637
 Transform:
   m_ObjectHideFlags: 0
@@ -716,17 +716,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552381636}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &573465138 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1725651340364923571, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-  m_PrefabInstance: {fileID: 845078283}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5309e30257167064082a33505eccb54f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SharedState
 --- !u!1 &709733354
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +730,7 @@ GameObject:
   - component: {fileID: 709733356}
   m_Layer: 0
   m_Name: FrontWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -852,7 +841,7 @@ GameObject:
   - component: {fileID: 727623586}
   m_Layer: 0
   m_Name: RightWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1074,6 +1063,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestBattleBot
       objectReference: {fileID: 0}
+    - target: {fileID: 6054002300257992556, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6400593883494249571, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: TeamId
       value: 1
@@ -1089,7 +1082,7 @@ PrefabInstance:
     - target: {fileID: 6863714207875969502, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: sharedState
       value: 
-      objectReference: {fileID: 573465138}
+      objectReference: {fileID: 0}
     - target: {fileID: 6863714207875969502, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: balloonSlots.Array.size
       value: 1
@@ -1165,7 +1158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &858870344
 Transform:
   m_ObjectHideFlags: 0
@@ -1272,7 +1265,7 @@ GameObject:
   - component: {fileID: 927270798}
   m_Layer: 0
   m_Name: BackWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1499,7 +1492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1412627531
 Transform:
   m_ObjectHideFlags: 0
@@ -1610,7 +1603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1567496671
 Transform:
   m_ObjectHideFlags: 0
@@ -1620,8 +1613,8 @@ Transform:
   m_GameObject: {fileID: 1567496670}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 0, z: -5}
-  m_LocalScale: {x: 7, y: 1, z: 0.1}
+  m_LocalPosition: {x: -7.25, y: 0, z: -4}
+  m_LocalScale: {x: 5.5, y: 1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1987706165}
@@ -1721,7 +1714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1919107329
 Transform:
   m_ObjectHideFlags: 0
@@ -1845,6 +1838,9 @@ Transform:
   m_Children:
   - {fileID: 1347492296}
   - {fileID: 242015246}
+  - {fileID: 727623585}
+  - {fileID: 927270797}
+  - {fileID: 709733355}
   - {fileID: 1567496671}
   - {fileID: 519923432}
   - {fileID: 1987990122}
@@ -1852,9 +1848,6 @@ Transform:
   - {fileID: 1412627531}
   - {fileID: 1919107329}
   - {fileID: 552381637}
-  - {fileID: 927270797}
-  - {fileID: 709733355}
-  - {fileID: 727623585}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1987990121
@@ -1875,7 +1868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1987990122
 Transform:
   m_ObjectHideFlags: 0
@@ -2053,6 +2046,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BalloonSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4715506596234884262, guid: 505380be440dc46478944782817f3198, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5979777528378102048, guid: 505380be440dc46478944782817f3198, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2110,6 +2107,6 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 2100521811488166835}
-  - {fileID: 1987706165}
-  - {fileID: 7892972341245852622}
   - {fileID: 845078283}
+  - {fileID: 7892972341245852622}
+  - {fileID: 1987706165}
