@@ -3,13 +3,22 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using System.Collections;
+using System.Collections.Generic;
 
-public class BattleAgent : Agent
+public class BattleBotAgent : Agent
 {
+    [Header("Game References")]
+    public BattleArena arena;
+    public List<BalloonUnit> myBalloons;
+
+    [Header("Visual Settings")]
+    public Material teamMaterial; 
+    public MeshRenderer bodyRenderer;
+
     [Header("Movement Settings")]
     public float moveSpeed = 10f;
     public float turnSpeed = 200f;
-    public float acceleration = 5f;
+    public float acceleration = 50f;
 
     [Header("Boost Settings")]
     public float boostMultiplier = 2f;
@@ -21,6 +30,14 @@ public class BattleAgent : Agent
 
     Rigidbody rBody;
 
+    void Start()
+    {
+        if (bodyRenderer != null && teamMaterial != null)
+        {
+            bodyRenderer.material = teamMaterial;
+        }
+    }
+    
     public override void Initialize()
     {
         rBody = GetComponent<Rigidbody>();
@@ -30,14 +47,42 @@ public class BattleAgent : Agent
     {
         rBody.linearVelocity = Vector3.zero;
         rBody.angularVelocity = Vector3.zero;
-        
         StopAllCoroutines();
         canBoost = true;
         isBoosting = false;
+    }
 
-        // Random Spawn
-        transform.localPosition = new Vector3(Random.Range(-5f, 5f), 0.5f, Random.Range(-5f, 5f));
-        transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+    public void ResetAgent()
+    {
+        foreach(var balloon in myBalloons)
+        {
+            balloon.ResetBalloon();
+        }
+    }
+
+    public int GetActiveBalloonCount()
+    {
+        int count = 0;
+        foreach(var b in myBalloons)
+        {
+            if(b.gameObject.activeSelf) count++;
+        }
+        return count;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Balloon"))
+        {
+            BalloonUnit hitBalloon = other.GetComponent<BalloonUnit>();
+
+            if (hitBalloon != null && hitBalloon.owner != this)
+            {
+                hitBalloon.Pop();
+
+                arena.OnBalloonPopped(hitBalloon.owner, this);
+            }
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -45,9 +90,9 @@ public class BattleAgent : Agent
         var localVel = transform.InverseTransformDirection(rBody.linearVelocity);
         sensor.AddObservation(localVel.x);
         sensor.AddObservation(localVel.z);
-
         sensor.AddObservation(canBoost ? 1.0f : 0.0f);
-        sensor.AddObservation(isBoosting ? 1.0f : 0.0f); 
+        sensor.AddObservation(isBoosting ? 1.0f : 0.0f);
+        sensor.AddObservation(GetActiveBalloonCount() / 3.0f);
     }
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
@@ -64,13 +109,9 @@ public class BattleAgent : Agent
         }
 
         float currentMaxSpeed = isBoosting ? moveSpeed * boostMultiplier : moveSpeed;
-        
         Vector3 targetVelocity = transform.forward * moveSignal * currentMaxSpeed;
-        
         Vector3 newVelocity = Vector3.MoveTowards(rBody.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-        
         newVelocity.y = rBody.linearVelocity.y;
-        
         rBody.linearVelocity = newVelocity;
     }
 
@@ -78,13 +119,9 @@ public class BattleAgent : Agent
     {
         canBoost = false;
         isBoosting = true;
-
         yield return new WaitForSeconds(boostDuration);
-
         isBoosting = false;
-
         yield return new WaitForSeconds(boostCooldown);
-
         canBoost = true;
     }
 
@@ -92,7 +129,6 @@ public class BattleAgent : Agent
     {
         var continuousActionsOut = actionsOut.ContinuousActions;
         var discreteActionsOut = actionsOut.DiscreteActions;
-
         continuousActionsOut[0] = Input.GetAxis("Vertical");
         continuousActionsOut[1] = Input.GetAxis("Horizontal");
         discreteActionsOut[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
