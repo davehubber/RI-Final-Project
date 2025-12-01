@@ -60,6 +60,19 @@ public class BattleBotAgent : Agent
         }
     }
 
+    public bool RestoreBalloon()
+    {
+        foreach (var balloon in myBalloons)
+        {
+            if (!balloon.gameObject.activeSelf)
+            {
+                balloon.ResetBalloon();
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int GetActiveBalloonCount()
     {
         int count = 0;

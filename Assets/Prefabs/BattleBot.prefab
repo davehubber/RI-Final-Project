@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 3291247713298124709}
   m_Layer: 0
   m_Name: BattleBot
-  m_TagString: Untagged
+  m_TagString: Agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -465,7 +465,7 @@ MonoBehaviour:
   - {fileID: 3366581712964933525}
   - {fileID: 4677816911163654883}
   - {fileID: 4065177918461256736}
-  teamMaterial: {fileID: 0}
+  teamMaterial: {fileID: 2100000, guid: b8addce0a4cc8f14a9d22aee46d5ef72, type: 2}
   bodyRenderer: {fileID: 4962459457640648916}
   moveSpeed: 10
   turnSpeed: 200
