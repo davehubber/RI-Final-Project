@@ -425,8 +425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd16d11efdca63d48b685081c901344d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleArena
-  agentA: {fileID: 1964095872690849815}
-  agentB: {fileID: 2464211903783166887}
+  agentA: {fileID: 0}
+  agentB: {fileID: 0}
   floorRenderer: {fileID: 4065152179378697118}
   defaultFloorMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   winFlashDuration: 1
@@ -1395,8 +1395,8 @@ Transform:
   - {fileID: 2045288351342602835}
   - {fileID: 6441597261282785573}
   - {fileID: 838427664199033951}
-  - {fileID: 6999347931437555331}
-  - {fileID: 6364097261243675955}
+  - {fileID: 6611523633996511542}
+  - {fileID: 888700953058360117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8816990307422653225
@@ -1558,7 +1558,7 @@ MonoBehaviour:
   spawnAreaSize: {x: 4, y: 4}
   respawnTime: 5
   spawnHeight: 0
---- !u!1001 &576657464815561963
+--- !u!1001 &3666711314852334430
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1566,55 +1566,47 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5867677430353417979}
     m_Modifications:
-    - target: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-      propertyPath: arena
-      value: 
-      objectReference: {fileID: 2741844075715328854}
-    - target: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-      propertyPath: teamMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 1d3bb4ac325f539438e894e596bea571, type: 2}
-    - target: {fileID: 6054002300257992556, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 6054002300257992556, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_Name
-      value: BattleBot
+      value: BattleBot Team 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalPosition.z
       value: -5
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
+    - target: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
@@ -1622,24 +1614,13 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
---- !u!114 &1964095872690849815 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-  m_PrefabInstance: {fileID: 576657464815561963}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2422d3638a851e429fbe6965ebb542b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleBotAgent
---- !u!4 &6999347931437555331 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
+--- !u!4 &6611523633996511542 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-  m_PrefabInstance: {fileID: 576657464815561963}
+  m_CorrespondingSourceObject: {fileID: 7575651834541109864, guid: 7f4c08371694f499f80e39454c5f4571, type: 3}
+  m_PrefabInstance: {fileID: 3666711314852334430}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3563419918163298139
+--- !u!1001 &7311404854629615965
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1647,13 +1628,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5867677430353417979}
     m_Modifications:
-    - target: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-      propertyPath: arena
-      value: 
-      objectReference: {fileID: 2741844075715328854}
     - target: {fileID: 6054002300257992556, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_Name
-      value: BattleBot (1)
+      value: BattleBot Team 1
       objectReference: {fileID: 0}
     - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1673,7 +1650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1681,7 +1658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1700,19 +1677,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
---- !u!114 &2464211903783166887 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1387509055905604860, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-  m_PrefabInstance: {fileID: 3563419918163298139}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2422d3638a851e429fbe6965ebb542b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleBotAgent
---- !u!4 &6364097261243675955 stripped
+--- !u!4 &888700953058360117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7575651834541109864, guid: f815c5f799294ea46a09c048d6fa89e8, type: 3}
-  m_PrefabInstance: {fileID: 3563419918163298139}
+  m_PrefabInstance: {fileID: 7311404854629615965}
   m_PrefabAsset: {fileID: 0}
