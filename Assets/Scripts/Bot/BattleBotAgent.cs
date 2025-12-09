@@ -98,6 +98,15 @@ public class BattleBotAgent : Agent
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            // Penalty for hitting a wall
+            AddReward(-0.02f);
+        }
+    }
+
     public override void CollectObservations(VectorSensor sensor)
     {
         var localVel = transform.InverseTransformDirection(rBody.linearVelocity);

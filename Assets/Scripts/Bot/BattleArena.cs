@@ -68,8 +68,8 @@ public class BattleArena : MonoBehaviour
         agentA.ResetAgent();
         agentB.ResetAgent();
 
-        agentA.transform.localPosition = new Vector3(Random.Range(-9f, 9f), 0f, Random.Range(1f, 9f));
-        agentB.transform.localPosition = new Vector3(Random.Range(-9f, 9f), 0f, Random.Range(-9f, -1f));
+        agentA.transform.localPosition = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+        agentB.transform.localPosition = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
 
         agentA.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
         agentB.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
