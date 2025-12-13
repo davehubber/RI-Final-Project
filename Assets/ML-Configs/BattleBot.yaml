@@ -37,19 +37,24 @@ environment_parameters:
     curriculum:
       - name: Close
         completion_criteria:
-          measure: Elo
+          measure: progress
           behavior: BattleBot
-          threshold: 1250
-          min_lesson_length: 200
+          threshold: 0.10
+          min_lesson_length: 100
+          signal_smoothing: true
           require_reset: true
         value: 0.25
+
       - name: Medium
         completion_criteria:
-          measure: Elo
+          measure: progress
           behavior: BattleBot
-          threshold: 1400
-          min_lesson_length: 200
+          threshold: 0.35
+          min_lesson_length: 100
+          signal_smoothing: true
           require_reset: true
         value: 0.60
+
       - name: Full
         value: 1.0
+
