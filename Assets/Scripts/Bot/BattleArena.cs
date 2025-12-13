@@ -47,6 +47,7 @@ public class BattleArena : MonoBehaviour
     [SerializeField] float wallPadding = 0.5f;
     [SerializeField] float agentRadius = 1.0f;
     [SerializeField] float minSeparation = 1.0f;
+    [SerializeField] float spawnAreaFracDefault = 1f;
     [SerializeField] int spawnTries = 50;
     [SerializeField] LayerMask spawnBlockers;
     [SerializeField] private Transform arenaRoot;
@@ -194,6 +195,8 @@ public class BattleArena : MonoBehaviour
 
     Vector3 SampleSpawnLocal()
     {
+        float spawnAreaFrac = Academy.Instance.EnvironmentParameters.GetWithDefault("spawn_area_frac", spawnAreaFracDefault);
+        float limit = (arenaHalfSize - wallPadding) * spawnAreaFrac;
         float x = Random.Range(-arenaHalfSize + wallPadding, arenaHalfSize - wallPadding);
         float z = Random.Range(-arenaHalfSize + wallPadding, arenaHalfSize - wallPadding);
         return new Vector3(x, 0f, z); // local to arenaRoot
