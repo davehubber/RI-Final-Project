@@ -669,7 +669,7 @@ MonoBehaviour:
   - {fileID: 3366581712964933525}
   - {fileID: 4677816911163654883}
   - {fileID: 4065177918461256736}
-  teamMaterial: {fileID: 2100000, guid: b8addce0a4cc8f14a9d22aee46d5ef72, type: 2}
+  teamMaterial: {fileID: 2100000, guid: 1d3bb4ac325f539438e894e596bea571, type: 2}
   bodyRenderer: {fileID: 4962459457640648916}
   moveSpeed: 10
   turnSpeed: 200
