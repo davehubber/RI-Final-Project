@@ -1,0 +1,66 @@
+{
+    "BattleBot": {
+        "checkpoints": [
+            {
+                "steps": 1000116,
+                "file_path": "results\\BattleTest02\\BattleBot\\BattleBot-1000116.onnx",
+                "reward": null,
+                "creation_time": 1765583767.1038394,
+                "auxillary_file_paths": [
+                    "results\\BattleTest02\\BattleBot\\BattleBot-1000116.pt"
+                ]
+            },
+            {
+                "steps": 1000116,
+                "file_path": "results\\BattleTest02\\BattleBot\\BattleBot-1000116.onnx",
+                "reward": null,
+                "creation_time": 1765583874.785848,
+                "auxillary_file_paths": [
+                    "results\\BattleTest02\\BattleBot\\BattleBot-1000116.pt"
+                ]
+            },
+            {
+                "steps": 1003486,
+                "file_path": "results\\BattleTest02\\BattleBot\\BattleBot-1003486.onnx",
+                "reward": 0.599999975413084,
+                "creation_time": 1765584120.5811493,
+                "auxillary_file_paths": [
+                    "results\\BattleTest02\\BattleBot\\BattleBot-1003486.pt"
+                ]
+            },
+            {
+                "steps": 1499954,
+                "file_path": "results\\BattleTest02\\BattleBot\\BattleBot-1499954.onnx",
+                "reward": 0.5428571152899947,
+                "creation_time": 1765585019.858222,
+                "auxillary_file_paths": [
+                    "results\\BattleTest02\\BattleBot\\BattleBot-1499954.pt"
+                ]
+            },
+            {
+                "steps": 1849214,
+                "file_path": "results\\BattleTest02\\BattleBot\\BattleBot-1849214.onnx",
+                "reward": 0.75,
+                "creation_time": 1765585765.4509773,
+                "auxillary_file_paths": [
+                    "results\\BattleTest02\\BattleBot\\BattleBot-1849214.pt"
+                ]
+            }
+        ],
+        "elo": 493.50863033157384,
+        "final_checkpoint": {
+            "steps": 1849214,
+            "file_path": "results\\BattleTest02\\BattleBot.onnx",
+            "reward": 0.75,
+            "creation_time": 1765585765.4509773,
+            "auxillary_file_paths": [
+                "results\\BattleTest02\\BattleBot\\BattleBot-1849214.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
