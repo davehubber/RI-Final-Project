@@ -27,6 +27,7 @@ public class BattleBotAgent : Agent
     
     private bool isBoosting = false;
     private bool canBoost = true;
+    private Color originalColor;
 
     Rigidbody rBody;
 
@@ -35,6 +36,7 @@ public class BattleBotAgent : Agent
         if (bodyRenderer != null && teamMaterial != null)
         {
             bodyRenderer.material = teamMaterial;
+            originalColor = teamMaterial.color;
         }
     }
     
@@ -141,7 +143,9 @@ public class BattleBotAgent : Agent
     {
         canBoost = false;
         isBoosting = true;
+        if (bodyRenderer != null) bodyRenderer.material.color = Color.white;
         yield return new WaitForSeconds(boostDuration);
+        if (bodyRenderer != null) bodyRenderer.material.color = originalColor;
         isBoosting = false;
         yield return new WaitForSeconds(boostCooldown);
         canBoost = true;
