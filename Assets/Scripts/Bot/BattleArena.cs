@@ -19,7 +19,7 @@ public class BattleArena : MonoBehaviour
 
     [Header("Episode Settings")]
     [Tooltip("Hard timeout in environment steps (physics steps). Set to 0 to disable.")]
-    public int maxEnvironmentSteps = 2000;
+    public int maxEnvironmentSteps = 2500;
 
     [Header("Rewards (Self-Play Friendly)")]
     [Tooltip("Terminal reward given to the winner when the match ends.")]
@@ -47,7 +47,7 @@ public class BattleArena : MonoBehaviour
     [SerializeField] float wallPadding = 0.5f;
     [SerializeField] float agentRadius = 1.0f;
     [SerializeField] float minSeparation = 1.0f;
-    [SerializeField] float spawnAreaFracDefault = 1f;
+    [SerializeField] float spawnAreaFracDefault = 1.0f;
     [SerializeField] int spawnTries = 50;
     [SerializeField] LayerMask spawnBlockers;
     [SerializeField] private Transform arenaRoot;
@@ -197,8 +197,8 @@ public class BattleArena : MonoBehaviour
     {
         float spawnAreaFrac = Academy.Instance.EnvironmentParameters.GetWithDefault("spawn_area_frac", spawnAreaFracDefault);
         float limit = (arenaHalfSize - wallPadding) * spawnAreaFrac;
-        float x = Random.Range(-arenaHalfSize + wallPadding, arenaHalfSize - wallPadding);
-        float z = Random.Range(-arenaHalfSize + wallPadding, arenaHalfSize - wallPadding);
+        float x = Random.Range(-limit, limit);
+        float z = Random.Range(-limit, limit);
         return new Vector3(x, 0f, z); // local to arenaRoot
     }
 

@@ -39,17 +39,17 @@ environment_parameters:
         completion_criteria:
           measure: progress
           behavior: BattleBot
-          threshold: 0.10
+          threshold: 0.05
           min_lesson_length: 100
           signal_smoothing: true
           require_reset: true
-        value: 0.25
+        value: 0.20
 
       - name: Medium
         completion_criteria:
           measure: progress
           behavior: BattleBot
-          threshold: 0.35
+          threshold: 0.125
           min_lesson_length: 100
           signal_smoothing: true
           require_reset: true

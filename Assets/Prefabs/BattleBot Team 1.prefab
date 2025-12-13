@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2968275608440240459}
   - component: {fileID: 2614865209279794512}
   - component: {fileID: 2036456725355074424}
+  - component: {fileID: 6452388087315364481}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -89,6 +90,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6452388087315364481
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089269159052464694}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3239416167625911254
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +162,7 @@ MonoBehaviour:
   m_RaysPerDirection: 50
   m_MaxRayDegrees: 60
   m_SphereCastRadius: 0.05
-  m_RayLength: 25
+  m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -165,7 +188,7 @@ MonoBehaviour:
   m_RaysPerDirection: 50
   m_MaxRayDegrees: 60
   m_SphereCastRadius: 0.05
-  m_RayLength: 25
+  m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -421,6 +444,7 @@ GameObject:
   - component: {fileID: 5652153910866121708}
   - component: {fileID: 4327678662788487909}
   - component: {fileID: 6365323956404509052}
+  - component: {fileID: 8127383662040995878}
   m_Layer: 0
   m_Name: Cylinder (1)
   m_TagString: Untagged
@@ -499,6 +523,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8127383662040995878
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5327081767707709444}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &6054002300257992556
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +723,10 @@ MonoBehaviour:
   boostMultiplier: 2
   boostDuration: 2
   boostCooldown: 5
+  stepPenalty: -0.00005
+  maxStepPenaltyPerEpisode: -0.2
+  wallHitPenalty: -0.005
+  maxWallPenaltyPerEpisode: -0.5
 --- !u!114 &6400593883494249571
 MonoBehaviour:
   m_ObjectHideFlags: 0
