@@ -174,16 +174,61 @@
                 "auxillary_file_paths": [
                     "results\\BattleTest03\\BattleBot\\BattleBot-3007465.pt"
                 ]
+            },
+            {
+                "steps": 3199984,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-3199984.onnx",
+                "reward": -0.1542992704426465,
+                "creation_time": 1765719041.8299375,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-3199984.pt"
+                ]
+            },
+            {
+                "steps": 3399980,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-3399980.onnx",
+                "reward": 0.20086456342999423,
+                "creation_time": 1765719957.692101,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-3399980.pt"
+                ]
+            },
+            {
+                "steps": 3599946,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-3599946.onnx",
+                "reward": -0.22834635791010582,
+                "creation_time": 1765720567.6416101,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-3599946.pt"
+                ]
+            },
+            {
+                "steps": 3799993,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-3799993.onnx",
+                "reward": 0.8287989475453893,
+                "creation_time": 1765721074.5922306,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-3799993.pt"
+                ]
+            },
+            {
+                "steps": 3845368,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-3845368.onnx",
+                "reward": -0.2713893696379203,
+                "creation_time": 1765721919.889088,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-3845368.pt"
+                ]
             }
         ],
-        "elo": 2308.5889278062486,
+        "elo": 2520.0026263203285,
         "final_checkpoint": {
-            "steps": 3007465,
+            "steps": 3845368,
             "file_path": "results\\BattleTest03\\BattleBot.onnx",
-            "reward": 0.05532717970199883,
-            "creation_time": 1765708793.7019122,
+            "reward": -0.2713893696379203,
+            "creation_time": 1765721919.889088,
             "auxillary_file_paths": [
-                "results\\BattleTest03\\BattleBot\\BattleBot-3007465.pt"
+                "results\\BattleTest03\\BattleBot\\BattleBot-3845368.pt"
             ]
         }
     },

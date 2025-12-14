@@ -76,7 +76,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 736
+          seed: 8803
           value: 0.2
       name: Close
       completion_criteria:
@@ -89,7 +89,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 737
+          seed: 8804
           value: 0.6
       name: Medium
       completion_criteria:
@@ -102,7 +102,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 738
+          seed: 8805
           value: 1.0
       name: Full
       completion_criteria: null
