@@ -1,0 +1,195 @@
+{
+    "spawn_area_frac": {
+        "lesson_num": 2
+    },
+    "BattleBot": {
+        "checkpoints": [
+            {
+                "steps": 199976,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-199976.onnx",
+                "reward": 0.34947973685339095,
+                "creation_time": 1765694214.6083944,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-199976.pt"
+                ]
+            },
+            {
+                "steps": 399968,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-399968.onnx",
+                "reward": 0.1490397423748737,
+                "creation_time": 1765695265.621623,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-399968.pt"
+                ]
+            },
+            {
+                "steps": 599973,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-599973.onnx",
+                "reward": -0.28791350552013945,
+                "creation_time": 1765696144.0234363,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-599973.pt"
+                ]
+            },
+            {
+                "steps": 651899,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-651899.onnx",
+                "reward": -0.17392442206090147,
+                "creation_time": 1765696424.0476117,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-651899.pt"
+                ]
+            },
+            {
+                "steps": 799967,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-799967.onnx",
+                "reward": -0.036847167368978265,
+                "creation_time": 1765697280.8732846,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-799967.pt"
+                ]
+            },
+            {
+                "steps": 890355,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-890355.onnx",
+                "reward": 0.6455247150734067,
+                "creation_time": 1765697661.525362,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-890355.pt"
+                ]
+            },
+            {
+                "steps": 893493,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-893493.onnx",
+                "reward": -1.4473999440670013,
+                "creation_time": 1765698008.1699836,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-893493.pt"
+                ]
+            },
+            {
+                "steps": 999952,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-999952.onnx",
+                "reward": -0.36996554424986244,
+                "creation_time": 1765698619.363134,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-999952.pt"
+                ]
+            },
+            {
+                "steps": 1199997,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-1199997.onnx",
+                "reward": 0.11556068501834359,
+                "creation_time": 1765699623.328018,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-1199997.pt"
+                ]
+            },
+            {
+                "steps": 1399973,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-1399973.onnx",
+                "reward": 0.0058629128616303205,
+                "creation_time": 1765700444.5235977,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-1399973.pt"
+                ]
+            },
+            {
+                "steps": 1599968,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-1599968.onnx",
+                "reward": 0.08363716823882178,
+                "creation_time": 1765701395.4345682,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-1599968.pt"
+                ]
+            },
+            {
+                "steps": 1799975,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-1799975.onnx",
+                "reward": 0.0021354376804083586,
+                "creation_time": 1765702606.2815247,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-1799975.pt"
+                ]
+            },
+            {
+                "steps": 1999956,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-1999956.onnx",
+                "reward": 0.026042756679303506,
+                "creation_time": 1765703739.2585392,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-1999956.pt"
+                ]
+            },
+            {
+                "steps": 2199954,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-2199954.onnx",
+                "reward": 3.107357770204544e-06,
+                "creation_time": 1765704865.1316218,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-2199954.pt"
+                ]
+            },
+            {
+                "steps": 2399988,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-2399988.onnx",
+                "reward": 0.0654725099189414,
+                "creation_time": 1765705822.7284317,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-2399988.pt"
+                ]
+            },
+            {
+                "steps": 2599950,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-2599950.onnx",
+                "reward": 0.636000944301486,
+                "creation_time": 1765706910.5785728,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-2599950.pt"
+                ]
+            },
+            {
+                "steps": 2799957,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-2799957.onnx",
+                "reward": -0.0033035460859537126,
+                "creation_time": 1765707847.9119694,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-2799957.pt"
+                ]
+            },
+            {
+                "steps": 2999991,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-2999991.onnx",
+                "reward": -0.18506692454684526,
+                "creation_time": 1765708761.9689837,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-2999991.pt"
+                ]
+            },
+            {
+                "steps": 3007465,
+                "file_path": "results\\BattleTest03\\BattleBot\\BattleBot-3007465.onnx",
+                "reward": 0.05532717970199883,
+                "creation_time": 1765708793.7019122,
+                "auxillary_file_paths": [
+                    "results\\BattleTest03\\BattleBot\\BattleBot-3007465.pt"
+                ]
+            }
+        ],
+        "elo": 2308.5889278062486,
+        "final_checkpoint": {
+            "steps": 3007465,
+            "file_path": "results\\BattleTest03\\BattleBot.onnx",
+            "reward": 0.05532717970199883,
+            "creation_time": 1765708793.7019122,
+            "auxillary_file_paths": [
+                "results\\BattleTest03\\BattleBot\\BattleBot-3007465.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

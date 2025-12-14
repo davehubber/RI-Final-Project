@@ -4,13 +4,21 @@ using System.Collections;
 
 /// <summary>
 /// Controls the 1v1 arena, applies rewards for pops/win/loss, and handles scene resets.
-/// Designed for self-play: keeps the terminal outcome (win/loss/draw) dominant so TensorBoard ELO stays meaningful.
+/// Spawn/teleport logic is hardened against floor-penetration and overlap-induced tipping.
 /// </summary>
 public class BattleArena : MonoBehaviour
 {
     [Header("Agents")]
     public BattleBotAgent agentA;
     public BattleBotAgent agentB;
+
+    [Header("Arena Root (local space for spawns)")]
+    [SerializeField] private Transform arenaRoot;
+
+    [Header("Floor (for safe spawn height)")]
+    [SerializeField] private Collider floorCollider; // assign your Floor collider here (recommended)
+    [SerializeField] private LayerMask floorMask = ~0; // fallback raycast mask
+    [SerializeField] private float spawnSkin = 0.02f;  // small lift above floor
 
     [Header("Arena Visuals")]
     public MeshRenderer floorRenderer;
@@ -22,41 +30,54 @@ public class BattleArena : MonoBehaviour
     public int maxEnvironmentSteps = 2500;
 
     [Header("Rewards (Self-Play Friendly)")]
-    [Tooltip("Terminal reward given to the winner when the match ends.")]
     public float winReward = 1.0f;
-
-    [Tooltip("Terminal reward given to the loser when the match ends.")]
     public float loseReward = -1.0f;
-
-    [Tooltip("Shaping reward for the attacker when a balloon is popped.")]
     public float balloonPopReward = 0.1f;
-
-    [Tooltip("Shaping reward for the victim when a balloon is popped (usually -balloonPopReward for zero-sum shaping).")]
     public float balloonPopPenalty = -0.1f;
 
-    [Tooltip("If enabled, guarantees winner finishes the episode with positive cumulative reward and loser with negative, so self-play ELO can't be inverted by penalties.")]
     public bool enforceOutcomeSignForElo = true;
-
-    [Tooltip("Minimum positive cumulative reward for the winner at episode end when enforcing outcome sign.")]
     public float minWinnerFinalReward = 0.1f;
-
-    [Tooltip("Maximum (closest to zero) cumulative reward for the loser at episode end when enforcing outcome sign (should be negative).")]
     public float maxLoserFinalReward = -0.1f;
 
-    [SerializeField] float arenaHalfSize = 10f;
-    [SerializeField] float wallPadding = 0.5f;
-    [SerializeField] float agentRadius = 1.0f;
-    [SerializeField] float minSeparation = 1.0f;
-    [SerializeField] float spawnAreaFracDefault = 1.0f;
-    [SerializeField] int spawnTries = 50;
-    [SerializeField] LayerMask spawnBlockers;
-    [SerializeField] private Transform arenaRoot;
+    [Header("Spawn Area")]
+    [SerializeField] private float arenaHalfSize = 10f;
+    [SerializeField] private float wallPadding = 0.5f;
+    [SerializeField] private float spawnAreaFracDefault = 1.0f;
+    [SerializeField] private int spawnTries = 80;
+
+    [Header("Spawn Collision / Separation")]
+    [Tooltip("LayerMask for things that should block spawns (e.g., walls, props). Prefer NOT to include agents themselves.")]
+    [SerializeField] private LayerMask spawnBlockers;
+
+    [Tooltip("If > 0, overrides auto radius for spawn overlap checks. If 0, auto-computed from agent collider bounds.")]
+    [SerializeField] private float agentRadiusOverride = 0f;
+
+    [Tooltip("Extra margin added on top of (radiusA + radiusB).")]
+    [SerializeField] private float separationMargin = 0.15f;
+
+    [Tooltip("After teleport, try to resolve small floor penetration by nudging up.")]
+    [SerializeField] private int verticalResolveTries = 8;
+
+    [Tooltip("Vertical nudge per resolve try.")]
+    [SerializeField] private float verticalResolveStep = 0.02f;
 
     private SimpleMultiAgentGroup agentGroup;
     private bool matchIsEnding = false;
     private int envStepCount = 0;
 
     public bool MatchIsEnding => matchIsEnding;
+
+    void Awake()
+    {
+        if (arenaRoot == null) arenaRoot = transform;
+
+        // Best-effort auto-find the floor collider if not assigned.
+        if (floorCollider == null && arenaRoot != null)
+        {
+            var floorT = arenaRoot.Find("Floor");
+            if (floorT != null) floorCollider = floorT.GetComponent<Collider>();
+        }
+    }
 
     void Start()
     {
@@ -78,7 +99,6 @@ public class BattleArena : MonoBehaviour
             envStepCount++;
             if (envStepCount >= maxEnvironmentSteps)
             {
-                // Draw / timeout: end with ~0 reward for both.
                 EndMatchDraw();
             }
         }
@@ -88,7 +108,6 @@ public class BattleArena : MonoBehaviour
     {
         if (matchIsEnding) return;
 
-        // Small, outcome-aligned shaping.
         attacker.AddReward(balloonPopReward);
         victim.AddReward(balloonPopPenalty);
 
@@ -103,7 +122,6 @@ public class BattleArena : MonoBehaviour
         if (matchIsEnding) return;
         matchIsEnding = true;
 
-        // Terminal outcome rewards (important for self-play ELO).
         winner.AddReward(winReward);
         loser.AddReward(loseReward);
 
@@ -112,17 +130,14 @@ public class BattleArena : MonoBehaviour
             EnforceOutcomeSigns(winner, loser);
         }
 
-        // Flash the floor for feedback (does not delay the episode end/reset).
         if (floorRenderer != null && winner.teamMaterial != null)
         {
             StartCoroutine(FlashFloor(winner.teamMaterial));
         }
 
-        // End the group episode, then reset the environment before the next Academy step.
         agentGroup.EndGroupEpisode();
         ResetScene();
 
-        // Prevent any leftover physics callbacks from double-ending.
         StartCoroutine(ClearMatchEndingNextFrame());
     }
 
@@ -131,8 +146,6 @@ public class BattleArena : MonoBehaviour
         if (matchIsEnding) return;
         matchIsEnding = true;
 
-        // Make a timeout behave like a true draw: final reward should be ~0 for both,
-        // otherwise self-play ELO may treat it as a win/loss depending on the sign.
         NeutralizeReward(agentA);
         NeutralizeReward(agentB);
 
@@ -150,31 +163,22 @@ public class BattleArena : MonoBehaviour
 
     private void EnforceOutcomeSigns(BattleBotAgent winner, BattleBotAgent loser)
     {
-        // Ensures ELO calculation can't be inverted by shaping penalties.
         float winnerCum = winner.GetCumulativeReward();
         if (winnerCum <= 0f)
-        {
             winner.AddReward(minWinnerFinalReward - winnerCum);
-        }
 
         float loserCum = loser.GetCumulativeReward();
         if (loserCum >= 0f)
-        {
-            // maxLoserFinalReward should be negative (e.g. -0.1). This pushes the loser below 0.
             loser.AddReward(maxLoserFinalReward - loserCum);
-        }
     }
 
     IEnumerator FlashFloor(Material winnerMat)
     {
         floorRenderer.material = winnerMat;
-
         yield return new WaitForSeconds(winFlashDuration);
 
         if (floorRenderer != null && defaultFloorMaterial != null)
-        {
             floorRenderer.material = defaultFloorMaterial;
-        }
     }
 
     IEnumerator ClearMatchEndingNextFrame()
@@ -193,66 +197,172 @@ public class BattleArena : MonoBehaviour
         PlaceAgentsNonOverlapping();
     }
 
+    // -------------------------
+    // Spawn / Teleport Utilities
+    // -------------------------
+
     Vector3 SampleSpawnLocal()
     {
         float spawnAreaFrac = Academy.Instance.EnvironmentParameters.GetWithDefault("spawn_area_frac", spawnAreaFracDefault);
         float limit = (arenaHalfSize - wallPadding) * spawnAreaFrac;
+
         float x = Random.Range(-limit, limit);
         float z = Random.Range(-limit, limit);
-        return new Vector3(x, 0f, z); // local to arenaRoot
+
+        // y is set later using floor + collider size
+        return new Vector3(x, 0f, z);
     }
 
     Vector3 LocalToWorld(Vector3 localPos) => arenaRoot.TransformPoint(localPos);
 
-    Quaternion YawLocalToWorld(float yawDeg) =>
-        arenaRoot.rotation * Quaternion.Euler(0f, yawDeg, 0f);
+    Quaternion YawLocalToWorld(float yawDeg) => arenaRoot.rotation * Quaternion.Euler(0f, yawDeg, 0f);
 
-    bool IsFreeLocal(Vector3 localPos)
+    Collider GetPrimaryNonTriggerCollider(BattleBotAgent a)
     {
-        Vector3 world = LocalToWorld(localPos);
-        return !Physics.CheckSphere(world, agentRadius, spawnBlockers, QueryTriggerInteraction.Ignore);
+        if (a == null) return null;
+        var cols = a.GetComponentsInChildren<Collider>(true);
+        foreach (var c in cols)
+        {
+            if (c != null && !c.isTrigger) return c;
+        }
+        return null;
     }
 
-    Vector3 FindSpawnLocal(Vector3? otherLocal)
+    float GetAgentSpawnRadius(BattleBotAgent a)
+    {
+        if (agentRadiusOverride > 0f) return agentRadiusOverride;
+
+        var col = GetPrimaryNonTriggerCollider(a);
+        if (col == null) return 0.5f;
+
+        // Use horizontal extents as radius estimate
+        var e = col.bounds.extents;
+        return Mathf.Max(e.x, e.z);
+    }
+
+    float GetAgentHalfHeight(BattleBotAgent a)
+    {
+        var col = GetPrimaryNonTriggerCollider(a);
+        if (col == null) return 0.5f;
+        return col.bounds.extents.y;
+    }
+
+    float GetFloorTopYAtXZ(Vector3 worldXZ)
+    {
+        if (floorCollider != null)
+            return floorCollider.bounds.max.y;
+
+        // Fallback: raycast down from above arena
+        float rayStartY = arenaRoot.position.y + 10f;
+        var origin = new Vector3(worldXZ.x, rayStartY, worldXZ.z);
+
+        if (Physics.Raycast(origin, Vector3.down, out var hit, 50f, floorMask, QueryTriggerInteraction.Ignore))
+            return hit.point.y;
+
+        return arenaRoot.position.y;
+    }
+
+    bool IsFreeWorld(Vector3 worldPos, float radius)
+    {
+        // Use OverlapSphere so we can safely ignore our own agents even if they are in the mask.
+        var hits = Physics.OverlapSphere(worldPos, radius, spawnBlockers, QueryTriggerInteraction.Ignore);
+        foreach (var h in hits)
+        {
+            if (h == null) continue;
+
+            // Ignore our two agents' colliders (old positions shouldn't block spawn sampling)
+            if (agentA != null && h.transform.IsChildOf(agentA.transform)) continue;
+            if (agentB != null && h.transform.IsChildOf(agentB.transform)) continue;
+
+            return false;
+        }
+        return true;
+    }
+
+    Vector3 FindSpawnLocal(float selfRadius, Vector3? otherLocal, float requiredSeparation)
     {
         for (int t = 0; t < spawnTries; t++)
         {
             var p = SampleSpawnLocal();
-            if (!IsFreeLocal(p)) continue;
-            if (otherLocal.HasValue && Vector3.Distance(p, otherLocal.Value) < minSeparation) continue;
+
+            if (otherLocal.HasValue && Vector3.Distance(p, otherLocal.Value) < requiredSeparation)
+                continue;
+
+            // Check blockers at the intended world position (with a safe y just above floor).
+            var world = LocalToWorld(p);
+            float floorTop = GetFloorTopYAtXZ(world);
+            float halfH = Mathf.Max(0.05f, GetAgentHalfHeight(selfRadius == GetAgentSpawnRadius(agentA) ? agentA : agentB)); // best-effort
+            world.y = floorTop + halfH + spawnSkin;
+
+            if (!IsFreeWorld(world, selfRadius))
+                continue;
+
             return p;
         }
 
-        // fallback
+        // fallback corners
         if (!otherLocal.HasValue) return new Vector3(-arenaHalfSize + wallPadding, 0f, -arenaHalfSize + wallPadding);
-        return new Vector3( arenaHalfSize - wallPadding, 0f,  arenaHalfSize - wallPadding);
+        return new Vector3(arenaHalfSize - wallPadding, 0f, arenaHalfSize - wallPadding);
     }
 
     void PlaceAgentsNonOverlapping()
     {
-        var pALocal = FindSpawnLocal(null);
-        var pBLocal = FindSpawnLocal(pALocal);
+        float rA = GetAgentSpawnRadius(agentA);
+        float rB = GetAgentSpawnRadius(agentB);
+        float required = rA + rB + separationMargin;
 
-        TeleportAgent(agentA, LocalToWorld(pALocal), YawLocalToWorld(Random.Range(0, 360)));
-        TeleportAgent(agentB, LocalToWorld(pBLocal), YawLocalToWorld(Random.Range(0, 360)));
+        var pALocal = FindSpawnLocal(rA, null, 0f);
+        var pBLocal = FindSpawnLocal(rB, pALocal, required);
+
+        TeleportAgent(agentA, LocalToWorld(pALocal), YawLocalToWorld(Random.Range(0, 360)), rA);
+        TeleportAgent(agentB, LocalToWorld(pBLocal), YawLocalToWorld(Random.Range(0, 360)), rB);
 
         Physics.SyncTransforms();
     }
 
-    void TeleportAgent(BattleBotAgent a, Vector3 worldPos, Quaternion worldRot)
+    void TeleportAgent(BattleBotAgent a, Vector3 worldPos, Quaternion worldRot, float spawnRadius)
     {
+        if (a == null) return;
+
+        // Force yaw-only rotation (no pitch/roll)
+        float yaw = worldRot.eulerAngles.y;
+        worldRot = Quaternion.Euler(0f, yaw, 0f);
+
+        // Safe y above floor using collider half-height
+        float halfH = Mathf.Max(0.05f, GetAgentHalfHeight(a));
+        float floorTop = GetFloorTopYAtXZ(worldPos);
+        worldPos.y = floorTop + halfH + spawnSkin;
+
         var rb = a.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.position = worldPos;
-            rb.rotation = worldRot;
-            rb.WakeUp();
-        }
-        else
+        if (rb == null)
         {
             a.transform.SetPositionAndRotation(worldPos, worldRot);
+            return;
         }
+
+        // Hard-teleport: avoid solver keeping old contacts and torques
+        rb.detectCollisions = false;
+        rb.isKinematic = true;
+
+        rb.position = worldPos;
+        rb.rotation = worldRot;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        Physics.SyncTransforms();
+
+        // If we still overlap due to floor/edge, nudge upward a few times
+        for (int i = 0; i < verticalResolveTries; i++)
+        {
+            if (IsFreeWorld(rb.position, spawnRadius))
+                break;
+
+            rb.position += Vector3.up * verticalResolveStep;
+            Physics.SyncTransforms();
+        }
+
+        rb.isKinematic = false;
+        rb.detectCollisions = true;
+        rb.WakeUp();
     }
 }
