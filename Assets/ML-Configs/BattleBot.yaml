@@ -47,14 +47,5 @@ environment_parameters:
           signal_smoothing: true
           require_reset: true
         value: 0.20
-      - name: Medium
-        completion_criteria:
-          measure: progress
-          behavior: BattleBot
-          threshold: 0.075
-          min_lesson_length: 100
-          signal_smoothing: true
-          require_reset: true
-        value: 0.60
       - name: Full
         value: 1.0
