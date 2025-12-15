@@ -42,7 +42,7 @@ environment_parameters:
         completion_criteria:
           measure: progress
           behavior: BattleBot
-          threshold: 0.05
+          threshold: 0.1
           min_lesson_length: 100
           signal_smoothing: true
           require_reset: true
