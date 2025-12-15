@@ -45,13 +45,13 @@ GameObject:
   m_Component:
   - component: {fileID: 838427664199033951}
   - component: {fileID: 8448459209308118843}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: HealthSpawner2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &838427664199033951
 Transform:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1590225086015488527
 Transform:
   m_ObjectHideFlags: 0
@@ -1272,13 +1272,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6441597261282785573}
   - component: {fileID: 595216756305875669}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: HealthSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6441597261282785573
 Transform:
   m_ObjectHideFlags: 0
