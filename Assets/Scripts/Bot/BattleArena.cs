@@ -146,19 +146,12 @@ public class BattleArena : MonoBehaviour
         if (matchIsEnding) return;
         matchIsEnding = true;
 
-        NeutralizeReward(agentA);
-        NeutralizeReward(agentB);
+        agentA.SetReward(0f);
+        agentB.SetReward(0f);
 
         agentGroup.EndGroupEpisode();
         ResetScene();
-
         StartCoroutine(ClearMatchEndingNextFrame());
-    }
-
-    private void NeutralizeReward(BattleBotAgent agent)
-    {
-        if (agent == null) return;
-        agent.AddReward(-agent.GetCumulativeReward());
     }
 
     private void EnforceOutcomeSigns(BattleBotAgent winner, BattleBotAgent loser)

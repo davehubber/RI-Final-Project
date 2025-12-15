@@ -615,8 +615,8 @@ MonoBehaviour:
   boostCooldown: 5
   stepPenalty: -0.00005
   maxStepPenaltyPerEpisode: -0.2
-  wallHitPenalty: -0.005
-  maxWallPenaltyPerEpisode: -0.5
+  wallHitPenalty: -0.001
+  maxWallPenaltyPerEpisode: -0.2
 --- !u!114 &6400593883494249571
 MonoBehaviour:
   m_ObjectHideFlags: 0

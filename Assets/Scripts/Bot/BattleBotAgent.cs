@@ -44,8 +44,8 @@ public class BattleBotAgent : Agent
     public float stepPenalty = -0.00005f;
     public float maxStepPenaltyPerEpisode = -0.2f;
 
-    public float wallHitPenalty = -0.005f;
-    public float maxWallPenaltyPerEpisode = -0.5f;
+    public float wallHitPenalty = -0.001f;
+    public float maxWallPenaltyPerEpisode = -0.2f;
 
     private bool isBoosting = false;
     private bool canBoost = true;
