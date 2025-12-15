@@ -180,7 +180,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c05cfe56cbdb46647ab14a352dd70858, type: 2}
+  - {fileID: 2100000, guid: e0be926620ce62644812c1e4b6ef8d53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -236,3 +236,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662ca763ec3f54341bd8e50af63bcfa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthPickup
+  healReward: 0.03
+  zeroSum: 1

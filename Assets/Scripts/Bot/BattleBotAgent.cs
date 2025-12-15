@@ -170,7 +170,7 @@ public class BattleBotAgent : Agent
         ApplyCappedPenalty(wallHitPenalty, ref wallPenaltyAcc, maxWallPenaltyPerEpisode);
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
         if (arena != null && arena.MatchIsEnding) return;
 
