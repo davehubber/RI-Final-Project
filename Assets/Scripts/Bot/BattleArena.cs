@@ -346,8 +346,6 @@ public class BattleArena : MonoBehaviour
 
         rb.position = worldPos;
         rb.rotation = worldRot;
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
 
         Physics.SyncTransforms();
 
@@ -362,6 +360,8 @@ public class BattleArena : MonoBehaviour
         }
 
         rb.isKinematic = false;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
         rb.detectCollisions = true;
         rb.WakeUp();
     }
