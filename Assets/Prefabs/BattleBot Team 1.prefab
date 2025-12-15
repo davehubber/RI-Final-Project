@@ -326,7 +326,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4694792188194372926}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 655e9f7b28d64a04a9a789d123e7e020, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -846,7 +846,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: BattleBot
   TeamId: 0
   m_UseChildSensors: 1
@@ -1055,7 +1055,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7031361610876654340}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 655e9f7b28d64a04a9a789d123e7e020, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1180,7 +1180,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7936800226742296594}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 655e9f7b28d64a04a9a789d123e7e020, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -2,13 +2,8 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
-using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// 1v1 BattleBot agent.
-/// Movement/turning is Rigidbody-driven and yaw-only to avoid tilt and floor-sticking.
-/// </summary>
 public class BattleBotAgent : Agent
 {
     [Header("Game References")]
@@ -24,15 +19,11 @@ public class BattleBotAgent : Agent
     public float turnSpeed = 200f;
     public float acceleration = 50f;
 
-    [Header("Vertical Safety (if gravity is on)")]
-    [Tooltip("Clamp vertical speed to prevent solver explosions from launching the bot.")]
+    [Header("Vertical Safety")]
     public float maxVerticalSpeed = 5f;
 
     [Header("Upright Safety")]
-    [Tooltip("If bot ever gets tilted, snap back upright (yaw preserved).")]
     public bool snapUprightIfTilted = true;
-
-    [Tooltip("Tilt threshold (degrees) above which we snap upright.")]
     public float tiltSnapDegrees = 2f;
 
     [Header("Boost Settings")]
@@ -47,14 +38,23 @@ public class BattleBotAgent : Agent
     public float wallHitPenalty = -0.001f;
     public float maxWallPenaltyPerEpisode = -0.2f;
 
+    // State Variables
+    private Rigidbody rBody;
+    private Color originalColor;
+    
+    // Physics/Input Caching
+    private float m_MoveInput;
+    private float m_TurnInput;
+    private bool m_BoostInput;
+
+    // Boost Logic
     private bool isBoosting = false;
     private bool canBoost = true;
-    private Color originalColor;
+    private float m_BoostTimer = 0f;
 
-    private Rigidbody rBody;
-
-    private float stepPenaltyAcc = 0f; // negative
-    private float wallPenaltyAcc = 0f; // negative
+    // Reward Accumulators
+    private float stepPenaltyAcc = 0f;
+    private float wallPenaltyAcc = 0f;
 
     void Start()
     {
@@ -70,14 +70,11 @@ public class BattleBotAgent : Agent
         rBody = GetComponent<Rigidbody>();
         if (rBody == null)
         {
-            Debug.LogError($"{nameof(BattleBotAgent)} on {name} requires a Rigidbody.");
+            Debug.LogError($"{nameof(BattleBotAgent)} requires a Rigidbody.");
             return;
         }
 
-        // Enforce "no tipping" in code too (matches your plan: constrain rotations, not y position).
         rBody.constraints |= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-
-        // Recommended for stable contact with the floor during ML training.
         rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         rBody.interpolation = RigidbodyInterpolation.Interpolate;
     }
@@ -94,22 +91,27 @@ public class BattleBotAgent : Agent
             rBody.linearVelocity = Vector3.zero;
             rBody.angularVelocity = Vector3.zero;
 
-            // Ensure we start upright even if something went wrong last episode
             float yaw = rBody.rotation.eulerAngles.y;
             rBody.rotation = Quaternion.Euler(0f, yaw, 0f);
         }
 
-        StopAllCoroutines();
+        // Reset Inputs
+        m_MoveInput = 0f;
+        m_TurnInput = 0f;
+        m_BoostInput = false;
+
+        // Reset Boost
         canBoost = true;
         isBoosting = false;
+        m_BoostTimer = 0f;
 
+        // Reset Penalties
         stepPenaltyAcc = 0f;
         wallPenaltyAcc = 0f;
 
         if (bodyRenderer != null && teamMaterial != null)
         {
             bodyRenderer.material = teamMaterial;
-            originalColor = teamMaterial.color;
         }
 
         if (myBalloons != null)
@@ -121,10 +123,114 @@ public class BattleBotAgent : Agent
         }
     }
 
+    void FixedUpdate()
+    {
+        if (arena != null && arena.MatchIsEnding) return;
+        if (rBody == null) return;
+
+        HandleBoostLogic();
+        HandleMovementPhysics();
+        HandleUprightSnap();
+    }
+
+    private void HandleBoostLogic()
+    {
+        if (m_BoostTimer > 0f)
+        {
+            m_BoostTimer -= Time.fixedDeltaTime;
+        }
+        else if (isBoosting)
+        {
+            // Boost finished
+            isBoosting = false;
+            m_BoostTimer = boostCooldown;
+            if (bodyRenderer != null) bodyRenderer.material.color = originalColor;
+        }
+        else if (!canBoost && m_BoostTimer <= 0f)
+        {
+            // Cooldown finished
+            canBoost = true;
+        }
+
+        // Activate boost if requested
+        if (m_BoostInput && canBoost)
+        {
+            isBoosting = true;
+            canBoost = false;
+            m_BoostTimer = boostDuration;
+            m_BoostInput = false; // Consume input
+            if (bodyRenderer != null) bodyRenderer.material.color = Color.white;
+        }
+    }
+
+    private void HandleMovementPhysics()
+    {
+        // Rotation
+        float yawDelta = m_TurnInput * turnSpeed * Time.fixedDeltaTime;
+        Quaternion yawRot = Quaternion.AngleAxis(yawDelta, Vector3.up) * rBody.rotation;
+        
+        float yaw = yawRot.eulerAngles.y;
+        rBody.MoveRotation(Quaternion.Euler(0f, yaw, 0f));
+
+        // Translation
+        float currentMaxSpeed = isBoosting ? moveSpeed * boostMultiplier : moveSpeed;
+        Vector3 planarTarget = transform.forward * (m_MoveInput * currentMaxSpeed);
+
+        Vector3 v = rBody.linearVelocity;
+        float yVel = Mathf.Clamp(v.y, -maxVerticalSpeed, maxVerticalSpeed);
+
+        Vector3 desired = new Vector3(planarTarget.x, yVel, planarTarget.z);
+        Vector3 newVel = Vector3.MoveTowards(v, desired, acceleration * Time.fixedDeltaTime);
+        
+        rBody.linearVelocity = newVel;
+    }
+
+    private void HandleUprightSnap()
+    {
+        if (!snapUprightIfTilted) return;
+
+        float tilt = Vector3.Angle(transform.up, Vector3.up);
+        if (tilt > tiltSnapDegrees)
+        {
+            float currentYaw = rBody.rotation.eulerAngles.y;
+            rBody.rotation = Quaternion.Euler(0f, currentYaw, 0f);
+
+            Vector3 av = rBody.angularVelocity;
+            rBody.angularVelocity = new Vector3(0f, av.y, 0f);
+        }
+    }
+
+    public override void OnActionReceived(ActionBuffers actionBuffers)
+    {
+        if (arena != null && arena.MatchIsEnding) return;
+
+        ApplyCappedPenalty(stepPenalty, ref stepPenaltyAcc, maxStepPenaltyPerEpisode);
+
+        // Cache inputs for FixedUpdate
+        m_MoveInput = actionBuffers.ContinuousActions[0];
+        m_TurnInput = actionBuffers.ContinuousActions[1];
+        
+        if (actionBuffers.DiscreteActions[0] == 1)
+        {
+            m_BoostInput = true;
+        }
+    }
+
+    public override void CollectObservations(VectorSensor sensor)
+    {
+        var localVel = transform.InverseTransformDirection(rBody != null ? rBody.linearVelocity : Vector3.zero);
+        sensor.AddObservation(localVel.x);
+        sensor.AddObservation(localVel.z);
+        sensor.AddObservation(canBoost ? 1.0f : 0.0f);
+        sensor.AddObservation(isBoosting ? 1.0f : 0.0f);
+        sensor.AddObservation(GetActiveBalloonCount() / 3.0f);
+    }
+
+    // Helper Methods
+
     public bool RestoreBalloon()
     {
         if (myBalloons == null) return false;
-
         foreach (var balloon in myBalloons)
         {
             if (balloon != null && !balloon.gameObject.activeSelf)
@@ -140,7 +246,6 @@ public class BattleBotAgent : Agent
     {
         int count = 0;
         if (myBalloons == null) return count;
-
         foreach (var b in myBalloons)
         {
             if (b != null && b.gameObject.activeSelf) count++;
@@ -155,7 +260,6 @@ public class BattleBotAgent : Agent
         if (other.CompareTag("Balloon"))
         {
             BalloonUnit hitBalloon = other.GetComponent<BalloonUnit>();
-
             if (hitBalloon != null && hitBalloon.owner != null && hitBalloon.owner != this)
             {
                 hitBalloon.Pop();
@@ -173,108 +277,30 @@ public class BattleBotAgent : Agent
     void OnCollisionStay(Collision collision)
     {
         if (arena != null && arena.MatchIsEnding) return;
-
         if (collision.gameObject.CompareTag("Wall"))
         {
             ApplyWallHitPenalty();
         }
     }
 
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        var localVel = transform.InverseTransformDirection(rBody != null ? rBody.linearVelocity : Vector3.zero);
-        sensor.AddObservation(localVel.x);
-        sensor.AddObservation(localVel.z);
-        sensor.AddObservation(canBoost ? 1.0f : 0.0f);
-        sensor.AddObservation(isBoosting ? 1.0f : 0.0f);
-        sensor.AddObservation(GetActiveBalloonCount() / 3.0f);
-    }
-
-    public override void OnActionReceived(ActionBuffers actionBuffers)
-    {
-        if (arena != null && arena.MatchIsEnding) return;
-        if (rBody == null) return;
-
-        ApplyCappedPenalty(stepPenalty, ref stepPenaltyAcc, maxStepPenaltyPerEpisode);
-
-        float moveSignal = actionBuffers.ContinuousActions[0];
-        float turnSignal = actionBuffers.ContinuousActions[1];
-        int boostSignal = actionBuffers.DiscreteActions[0];
-
-        if (boostSignal == 1 && canBoost)
-        {
-            StartCoroutine(ActivateBoost());
-        }
-
-        // --- Yaw-only turning via Rigidbody (no Transform.Rotate) ---
-        float yawDelta = turnSignal * turnSpeed * Time.fixedDeltaTime;
-        Quaternion yawRot = Quaternion.AngleAxis(yawDelta, Vector3.up) * rBody.rotation;
-
-        // Force pitch/roll to zero (keeps yaw)
-        float yaw = yawRot.eulerAngles.y;
-        rBody.MoveRotation(Quaternion.Euler(0f, yaw, 0f));
-
-        // --- Planar movement (XZ driven), Y preserved + clamped ---
-        float currentMaxSpeed = isBoosting ? moveSpeed * boostMultiplier : moveSpeed;
-        Vector3 planarTarget = transform.forward * (moveSignal * currentMaxSpeed);
-
-        Vector3 v = rBody.linearVelocity;
-        float yVel = Mathf.Clamp(v.y, -maxVerticalSpeed, maxVerticalSpeed);
-
-        Vector3 desired = new Vector3(planarTarget.x, yVel, planarTarget.z);
-        Vector3 newVel = Vector3.MoveTowards(v, desired, acceleration * Time.fixedDeltaTime);
-        rBody.linearVelocity = newVel;
-
-        // --- Last-resort upright snap (should almost never trigger once spawns are fixed) ---
-        if (snapUprightIfTilted)
-        {
-            float tilt = Vector3.Angle(transform.up, Vector3.up);
-            if (tilt > tiltSnapDegrees)
-            {
-                float currentYaw = rBody.rotation.eulerAngles.y;
-                rBody.rotation = Quaternion.Euler(0f, currentYaw, 0f);
-
-                Vector3 av = rBody.angularVelocity;
-                rBody.angularVelocity = new Vector3(0f, av.y, 0f);
-            }
-        }
-    }
-
     private void ApplyCappedPenalty(float perEventPenalty, ref float accumulator, float cap)
     {
-        if (perEventPenalty == 0f) return;
-        if (cap == 0f) return;
+        if (perEventPenalty == 0f || cap == 0f) return;
 
-        if (cap > 0f)
+        if (cap > 0f) // Positive cap means we are capping a reward, not penalty (rare but handled)
         {
             AddReward(perEventPenalty);
             accumulator += perEventPenalty;
             return;
         }
 
-        if (accumulator <= cap) return;
+        if (accumulator <= cap) return; // Cap reached
 
-        float remaining = cap - accumulator;             // negative or zero
-        float delta = Mathf.Max(perEventPenalty, remaining); // clamp to not exceed cap
+        float remaining = cap - accumulator;
+        float delta = Mathf.Max(perEventPenalty, remaining);
 
         AddReward(delta);
         accumulator += delta;
-    }
-
-    IEnumerator ActivateBoost()
-    {
-        canBoost = false;
-        isBoosting = true;
-
-        if (bodyRenderer != null) bodyRenderer.material.color = Color.white;
-
-        yield return new WaitForSeconds(boostDuration);
-
-        if (bodyRenderer != null) bodyRenderer.material.color = originalColor;
-        isBoosting = false;
-
-        yield return new WaitForSeconds(boostCooldown);
-        canBoost = true;
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
