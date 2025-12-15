@@ -1,0 +1,300 @@
+{
+    "BattleBot": {
+        "checkpoints": [
+            {
+                "steps": 199954,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-199954.onnx",
+                "reward": -0.023052338460859443,
+                "creation_time": 1765811006.7093108,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-199954.pt"
+                ]
+            },
+            {
+                "steps": 399969,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-399969.onnx",
+                "reward": 0.14578131782764103,
+                "creation_time": 1765811437.4857416,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-399969.pt"
+                ]
+            },
+            {
+                "steps": 599991,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-599991.onnx",
+                "reward": -0.7425148699665443,
+                "creation_time": 1765811840.0518517,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-599991.pt"
+                ]
+            },
+            {
+                "steps": 799958,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-799958.onnx",
+                "reward": -0.055325844514300115,
+                "creation_time": 1765812270.9948592,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-799958.pt"
+                ]
+            },
+            {
+                "steps": 999962,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-999962.onnx",
+                "reward": -0.2420080864976626,
+                "creation_time": 1765812710.5160775,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-999962.pt"
+                ]
+            },
+            {
+                "steps": 1199946,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-1199946.onnx",
+                "reward": 0.054443936722236685,
+                "creation_time": 1765813137.4196517,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-1199946.pt"
+                ]
+            },
+            {
+                "steps": 1399956,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-1399956.onnx",
+                "reward": 0.35448140019434504,
+                "creation_time": 1765813573.0243237,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-1399956.pt"
+                ]
+            },
+            {
+                "steps": 1599937,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-1599937.onnx",
+                "reward": 0.076893721978801,
+                "creation_time": 1765814009.2464712,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-1599937.pt"
+                ]
+            },
+            {
+                "steps": 1799960,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-1799960.onnx",
+                "reward": null,
+                "creation_time": 1765814438.3058567,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-1799960.pt"
+                ]
+            },
+            {
+                "steps": 1999974,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-1999974.onnx",
+                "reward": -0.11820808795746415,
+                "creation_time": 1765814865.9943597,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-1999974.pt"
+                ]
+            },
+            {
+                "steps": 2199966,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-2199966.onnx",
+                "reward": -0.22868657826135555,
+                "creation_time": 1765815293.9600348,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-2199966.pt"
+                ]
+            },
+            {
+                "steps": 2399957,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-2399957.onnx",
+                "reward": 0.08279390903771855,
+                "creation_time": 1765815728.5102818,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-2399957.pt"
+                ]
+            },
+            {
+                "steps": 2599974,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-2599974.onnx",
+                "reward": 0.3800251447944902,
+                "creation_time": 1765816160.1985655,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-2599974.pt"
+                ]
+            },
+            {
+                "steps": 2799959,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-2799959.onnx",
+                "reward": 0.42623547866242006,
+                "creation_time": 1765816596.3490164,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-2799959.pt"
+                ]
+            },
+            {
+                "steps": 2999984,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-2999984.onnx",
+                "reward": 0.15893795884823284,
+                "creation_time": 1765817033.0447218,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-2999984.pt"
+                ]
+            },
+            {
+                "steps": 3199970,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-3199970.onnx",
+                "reward": 0.14159393511363305,
+                "creation_time": 1765817475.4000514,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-3199970.pt"
+                ]
+            },
+            {
+                "steps": 3399994,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-3399994.onnx",
+                "reward": 0.4473609639913775,
+                "creation_time": 1765817914.741399,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-3399994.pt"
+                ]
+            },
+            {
+                "steps": 3599976,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-3599976.onnx",
+                "reward": 0.9705499652773142,
+                "creation_time": 1765818359.3997579,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-3599976.pt"
+                ]
+            },
+            {
+                "steps": 3799945,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-3799945.onnx",
+                "reward": 0.3457970516756177,
+                "creation_time": 1765818799.7624876,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-3799945.pt"
+                ]
+            },
+            {
+                "steps": 3999950,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-3999950.onnx",
+                "reward": null,
+                "creation_time": 1765819246.114475,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-3999950.pt"
+                ]
+            },
+            {
+                "steps": 4199975,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-4199975.onnx",
+                "reward": 0.08664675988256931,
+                "creation_time": 1765819689.9902787,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-4199975.pt"
+                ]
+            },
+            {
+                "steps": 4399960,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-4399960.onnx",
+                "reward": -0.27302580812063654,
+                "creation_time": 1765820128.1016846,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-4399960.pt"
+                ]
+            },
+            {
+                "steps": 4599950,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-4599950.onnx",
+                "reward": 0.4849250444676727,
+                "creation_time": 1765820576.4351108,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-4599950.pt"
+                ]
+            },
+            {
+                "steps": 4799955,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-4799955.onnx",
+                "reward": -0.18585441684858364,
+                "creation_time": 1765821020.3942366,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-4799955.pt"
+                ]
+            },
+            {
+                "steps": 4999946,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-4999946.onnx",
+                "reward": 0.18022295236005448,
+                "creation_time": 1765821465.787679,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-4999946.pt"
+                ]
+            },
+            {
+                "steps": 5199980,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-5199980.onnx",
+                "reward": 0.45681050711573334,
+                "creation_time": 1765821910.637211,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-5199980.pt"
+                ]
+            },
+            {
+                "steps": 5399943,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-5399943.onnx",
+                "reward": 0.5769867734983564,
+                "creation_time": 1765822355.5481532,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-5399943.pt"
+                ]
+            },
+            {
+                "steps": 5599945,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-5599945.onnx",
+                "reward": 0.5334431439211281,
+                "creation_time": 1765822802.5578752,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-5599945.pt"
+                ]
+            },
+            {
+                "steps": 5799998,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-5799998.onnx",
+                "reward": 0.13474798301467672,
+                "creation_time": 1765823247.540012,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-5799998.pt"
+                ]
+            },
+            {
+                "steps": 5999964,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-5999964.onnx",
+                "reward": 0.40784599496982993,
+                "creation_time": 1765823685.2504723,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-5999964.pt"
+                ]
+            },
+            {
+                "steps": 6075986,
+                "file_path": "results\\full_arena\\BattleBot\\BattleBot-6075986.onnx",
+                "reward": null,
+                "creation_time": 1765823854.3641014,
+                "auxillary_file_paths": [
+                    "results\\full_arena\\BattleBot\\BattleBot-6075986.pt"
+                ]
+            }
+        ],
+        "elo": 1316.9738125111874,
+        "final_checkpoint": {
+            "steps": 6075986,
+            "file_path": "results\\full_arena\\BattleBot.onnx",
+            "reward": null,
+            "creation_time": 1765823854.3641014,
+            "auxillary_file_paths": [
+                "results\\full_arena\\BattleBot\\BattleBot-6075986.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
