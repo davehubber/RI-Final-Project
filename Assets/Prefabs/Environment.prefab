@@ -284,7 +284,7 @@ MonoBehaviour:
   floorRenderer: {fileID: 6922663960298786032}
   defaultFloorMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   winFlashDuration: 1
-  maxEnvironmentSteps: 2500
+  maxEnvironmentSteps: 5000
   winReward: 1
   loseReward: -1
   balloonPopReward: 0.1

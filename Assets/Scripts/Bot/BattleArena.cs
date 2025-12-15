@@ -27,7 +27,7 @@ public class BattleArena : MonoBehaviour
 
     [Header("Episode Settings")]
     [Tooltip("Hard timeout in environment steps (physics steps). Set to 0 to disable.")]
-    public int maxEnvironmentSteps = 2500;
+    public int maxEnvironmentSteps = 5000;
 
     [Header("Rewards (Self-Play Friendly)")]
     public float winReward = 1.0f;
