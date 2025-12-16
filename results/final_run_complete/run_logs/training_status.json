@@ -1,0 +1,102 @@
+{
+    "BattleBot": {
+        "checkpoints": [
+            {
+                "steps": 1399995,
+                "file_path": "results\\final_run_complete\\BattleBot\\BattleBot-1399995.onnx",
+                "reward": null,
+                "creation_time": 1765893768.2508953,
+                "auxillary_file_paths": [
+                    "results\\final_run_complete\\BattleBot\\BattleBot-1399995.pt"
+                ]
+            },
+            {
+                "steps": 1599956,
+                "file_path": "results\\final_run_complete\\BattleBot\\BattleBot-1599956.onnx",
+                "reward": -0.4483560514511607,
+                "creation_time": 1765894318.56482,
+                "auxillary_file_paths": [
+                    "results\\final_run_complete\\BattleBot\\BattleBot-1599956.pt"
+                ]
+            },
+            {
+                "steps": 1799958,
+                "file_path": "results\\final_run_complete\\BattleBot\\BattleBot-1799958.onnx",
+                "reward": 0.12020395107238609,
+                "creation_time": 1765894845.766677,
+                "auxillary_file_paths": [
+                    "results\\final_run_complete\\BattleBot\\BattleBot-1799958.pt"
+                ]
+            },
+            {
+                "steps": 1999961,
+                "file_path": "results\\final_run_complete\\BattleBot\\BattleBot-1999961.onnx",
+                "reward": -0.2749983296962455,
+                "creation_time": 1765895378.3154361,
+                "auxillary_file_paths": [
+                    "results\\final_run_complete\\BattleBot\\BattleBot-1999961.pt"
+                ]
+            },
+            {
+                "steps": 2199953,
+                "file_path": "results\\final_run_complete\\BattleBot\\BattleBot-2199953.onnx",
+                "reward": 0.18184719349180037,
+                "creation_time": 1765895914.25819,
+                "auxillary_file_paths": [
+                    "results\\final_run_complete\\BattleBot\\BattleBot-2199953.pt"
+                ]
+            },
+            {
+                "steps": 2399983,
+                "file_path": "results\\final_run_complete\\BattleBot\\BattleBot-2399983.onnx",
+                "reward": -1.2524992988910526,
+                "creation_time": 1765896461.0185125,
+                "auxillary_file_paths": [
+                    "results\\final_run_complete\\BattleBot\\BattleBot-2399983.pt"
+                ]
+            },
+            {
+                "steps": 2599961,
+                "file_path": "results\\final_run_complete\\BattleBot\\BattleBot-2599961.onnx",
+                "reward": -0.14692001808309993,
+                "creation_time": 1765897003.4790993,
+                "auxillary_file_paths": [
+                    "results\\final_run_complete\\BattleBot\\BattleBot-2599961.pt"
+                ]
+            },
+            {
+                "steps": 2799986,
+                "file_path": "results\\final_run_complete\\BattleBot\\BattleBot-2799986.onnx",
+                "reward": null,
+                "creation_time": 1765897550.7268293,
+                "auxillary_file_paths": [
+                    "results\\final_run_complete\\BattleBot\\BattleBot-2799986.pt"
+                ]
+            },
+            {
+                "steps": 2872357,
+                "file_path": "results\\final_run_complete\\BattleBot\\BattleBot-2872357.onnx",
+                "reward": 0.3410510067284728,
+                "creation_time": 1765897746.4037678,
+                "auxillary_file_paths": [
+                    "results\\final_run_complete\\BattleBot\\BattleBot-2872357.pt"
+                ]
+            }
+        ],
+        "elo": 1223.4289770769174,
+        "final_checkpoint": {
+            "steps": 2872357,
+            "file_path": "results\\final_run_complete\\BattleBot.onnx",
+            "reward": 0.3410510067284728,
+            "creation_time": 1765897746.4037678,
+            "auxillary_file_paths": [
+                "results\\final_run_complete\\BattleBot\\BattleBot-2872357.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

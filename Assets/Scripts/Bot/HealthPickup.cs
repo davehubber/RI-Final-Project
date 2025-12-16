@@ -3,7 +3,7 @@ using UnityEngine;
 public class HealthPickup : MonoBehaviour
 {
     [Header("Reward")]
-    public float healReward = 0.05f;
+    public float healReward = 0.075f;
     public bool zeroSum = true;
 
     private bool consumed = false;
