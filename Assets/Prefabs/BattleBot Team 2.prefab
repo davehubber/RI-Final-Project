@@ -648,9 +648,9 @@ MonoBehaviour:
   boostDuration: 2
   boostCooldown: 5
   stepPenalty: -0.00005
-  maxStepPenaltyPerEpisode: -0.2
-  wallHitPenalty: -0.001
-  maxWallPenaltyPerEpisode: -0.2
+  maxStepPenaltyPerEpisode: -0.1
+  wallHitPenalty: -0.0001
+  maxWallPenaltyPerEpisode: -0.05
 --- !u!114 &6400593883494249571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: fde0100af036cbf4c9d465f122f68632, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: BattleBot

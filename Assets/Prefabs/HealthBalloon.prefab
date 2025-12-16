@@ -236,5 +236,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662ca763ec3f54341bd8e50af63bcfa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthPickup
-  healReward: 0.03
+  healReward: 0.05
   zeroSum: 1

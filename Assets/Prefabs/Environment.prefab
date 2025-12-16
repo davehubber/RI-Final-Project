@@ -51,7 +51,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &838427664199033951
 Transform:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1590225086015488527
 Transform:
   m_ObjectHideFlags: 0
@@ -293,14 +293,14 @@ MonoBehaviour:
   minWinnerFinalReward: 0.1
   maxLoserFinalReward: -0.1
   arenaHalfSize: 10
-  wallPadding: 0.5
+  wallPadding: 0.25
   spawnAreaFracDefault: 1
   spawnTries: 50
   spawnBlockers:
     serializedVersion: 2
     m_Bits: 128
   agentRadiusOverride: 0
-  separationMargin: 0.15
+  separationMargin: 0.1
   verticalResolveTries: 8
   verticalResolveStep: 0.02
 --- !u!1 &2904878059299952727

@@ -35,8 +35,8 @@ public class BattleBotAgent : Agent
     public float stepPenalty = -0.00005f;
     public float maxStepPenaltyPerEpisode = -0.2f;
 
-    public float wallHitPenalty = -0.001f;
-    public float maxWallPenaltyPerEpisode = -0.2f;
+    public float wallHitPenalty = -0.0001f;
+    public float maxWallPenaltyPerEpisode = -0.05f;
 
     // State Variables
     private Rigidbody rBody;
