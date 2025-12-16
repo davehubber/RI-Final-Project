@@ -1,0 +1,150 @@
+{
+    "spawn_area_frac": {
+        "lesson_num": 1
+    },
+    "BattleBot": {
+        "checkpoints": [
+            {
+                "steps": 199945,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-199945.onnx",
+                "reward": -0.23025809496175498,
+                "creation_time": 1765878520.0208898,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-199945.pt"
+                ]
+            },
+            {
+                "steps": 399984,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-399984.onnx",
+                "reward": -0.4770090427948162,
+                "creation_time": 1765879011.2036877,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-399984.pt"
+                ]
+            },
+            {
+                "steps": 599969,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-599969.onnx",
+                "reward": -0.20000809989869595,
+                "creation_time": 1765879495.0592065,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-599969.pt"
+                ]
+            },
+            {
+                "steps": 799971,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-799971.onnx",
+                "reward": -0.012090077468504509,
+                "creation_time": 1765879983.9786088,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-799971.pt"
+                ]
+            },
+            {
+                "steps": 999960,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-999960.onnx",
+                "reward": -0.20467474622031054,
+                "creation_time": 1765880473.0232387,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-999960.pt"
+                ]
+            },
+            {
+                "steps": 1199981,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-1199981.onnx",
+                "reward": 0.5026959649985656,
+                "creation_time": 1765880960.3869977,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-1199981.pt"
+                ]
+            },
+            {
+                "steps": 1399971,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-1399971.onnx",
+                "reward": 0.002410946605617509,
+                "creation_time": 1765881453.5871744,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-1399971.pt"
+                ]
+            },
+            {
+                "steps": 1599938,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-1599938.onnx",
+                "reward": -1.431455443923672,
+                "creation_time": 1765881948.1453333,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-1599938.pt"
+                ]
+            },
+            {
+                "steps": 1799992,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-1799992.onnx",
+                "reward": -0.2678702829353925,
+                "creation_time": 1765882440.4783707,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-1799992.pt"
+                ]
+            },
+            {
+                "steps": 1999987,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-1999987.onnx",
+                "reward": 0.2886903661613663,
+                "creation_time": 1765882925.765635,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-1999987.pt"
+                ]
+            },
+            {
+                "steps": 2199942,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-2199942.onnx",
+                "reward": -0.4328657928078125,
+                "creation_time": 1765883421.579324,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-2199942.pt"
+                ]
+            },
+            {
+                "steps": 2399983,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-2399983.onnx",
+                "reward": -0.5000078873708844,
+                "creation_time": 1765883909.891386,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-2399983.pt"
+                ]
+            },
+            {
+                "steps": 2599960,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-2599960.onnx",
+                "reward": -0.6114331679806734,
+                "creation_time": 1765884386.400573,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-2599960.pt"
+                ]
+            },
+            {
+                "steps": 2705733,
+                "file_path": "results\\final_run\\BattleBot\\BattleBot-2705733.onnx",
+                "reward": -0.20681807678192854,
+                "creation_time": 1765884635.4676304,
+                "auxillary_file_paths": [
+                    "results\\final_run\\BattleBot\\BattleBot-2705733.pt"
+                ]
+            }
+        ],
+        "elo": 1337.7313179157456,
+        "final_checkpoint": {
+            "steps": 2705733,
+            "file_path": "results\\final_run\\BattleBot.onnx",
+            "reward": -0.20681807678192854,
+            "creation_time": 1765884635.4676304,
+            "auxillary_file_paths": [
+                "results\\final_run\\BattleBot\\BattleBot-2705733.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
